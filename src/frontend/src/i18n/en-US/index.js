@@ -1,7 +1,72 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful',
+  auth: {
+    login: 'Login',
+    logout: 'Logout',
+    register: 'Register',
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    phone: 'Phone Number',
+    dateOfBirth: 'Date of Birth',
+    gender: 'Gender',
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
+    forgotPassword: 'Forgot Password?',
+    resetPassword: 'Reset Password',
+    newPassword: 'New Password',
+    currentPassword: 'Current Password',
+    rememberMe: 'Remember Me',
+    noAccount: "Don't have an account?",
+    haveAccount: 'Already have an account?',
+    createAccount: 'Create Account',
+    activateAccount: 'Activate Account',
+    enterOtp: 'Enter Verification Code',
+    otpSent: 'A verification code has been sent to your email',
+    resendOtp: 'Resend Code',
+    verifyOtp: 'Verify'
+  },
+  session: {
+    expiring: 'Session Expiring',
+    expiringDesc: 'Your session will expire in {minutes} minute(s).',
+    continueQuestion: 'Would you like to continue your session?',
+    continueSession: 'Continue Session',
+    refreshed: 'Session refreshed successfully',
+    expired: 'Your session has expired. Please log in again.'
+  },
+  validation: {
+    required: 'This field is required',
+    email: 'Please enter a valid email address',
+    minLength: 'Must be at least {min} characters',
+    maxLength: 'Must be no more than {max} characters',
+    passwordMatch: 'Passwords do not match',
+    passwordStrength: 'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+    invalidDate: 'Please enter a valid date',
+    pastDate: 'Date must be in the past'
+  },
+  error: {
+    generic: 'An unexpected error occurred. Please try again.',
+    network: 'Network error. Please check your connection.',
+    helpCode: 'Help Code',
+    tryAgain: 'Please try again',
+    contactSupport: 'If the problem persists, contact support with the help code.'
+  },
+  success: {
+    registered: 'Registration successful! Please check your email to activate your account.',
+    activated: 'Your account has been activated. You can now log in.',
+    passwordReset: 'Your password has been reset. You can now log in with your new password.',
+    emailSent: 'Please check your email for further instructions.',
+    loggedOut: 'You have been logged out successfully.'
+  },
+  common: {
+    submit: 'Submit',
+    cancel: 'Cancel',
+    save: 'Save',
+    back: 'Back',
+    next: 'Next',
+    loading: 'Loading...',
+    or: 'or'
+  }
 }

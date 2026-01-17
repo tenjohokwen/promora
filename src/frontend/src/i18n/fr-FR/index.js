@@ -1,0 +1,72 @@
+export default {
+  auth: {
+    login: 'Connexion',
+    logout: 'Deconnexion',
+    register: "S'inscrire",
+    email: 'Email',
+    password: 'Mot de passe',
+    confirmPassword: 'Confirmer le mot de passe',
+    firstName: 'Prenom',
+    lastName: 'Nom',
+    phone: 'Numero de telephone',
+    dateOfBirth: 'Date de naissance',
+    gender: 'Genre',
+    male: 'Homme',
+    female: 'Femme',
+    other: 'Autre',
+    forgotPassword: 'Mot de passe oublie ?',
+    resetPassword: 'Reinitialiser le mot de passe',
+    newPassword: 'Nouveau mot de passe',
+    currentPassword: 'Mot de passe actuel',
+    rememberMe: 'Se souvenir de moi',
+    noAccount: "Vous n'avez pas de compte ?",
+    haveAccount: 'Vous avez deja un compte ?',
+    createAccount: 'Creer un compte',
+    activateAccount: 'Activer le compte',
+    enterOtp: 'Entrer le code de verification',
+    otpSent: 'Un code de verification a ete envoye a votre email',
+    resendOtp: 'Renvoyer le code',
+    verifyOtp: 'Verifier'
+  },
+  session: {
+    expiring: 'Session expirant',
+    expiringDesc: 'Votre session expirera dans {minutes} minute(s).',
+    continueQuestion: 'Voulez-vous continuer votre session ?',
+    continueSession: 'Continuer la session',
+    refreshed: 'Session actualisee avec succes',
+    expired: 'Votre session a expire. Veuillez vous reconnecter.'
+  },
+  validation: {
+    required: 'Ce champ est requis',
+    email: 'Veuillez entrer une adresse email valide',
+    minLength: 'Doit contenir au moins {min} caracteres',
+    maxLength: 'Ne doit pas depasser {max} caracteres',
+    passwordMatch: 'Les mots de passe ne correspondent pas',
+    passwordStrength: 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
+    invalidDate: 'Veuillez entrer une date valide',
+    pastDate: 'La date doit etre dans le passe'
+  },
+  error: {
+    generic: 'Une erreur inattendue est survenue. Veuillez reessayer.',
+    network: 'Erreur reseau. Veuillez verifier votre connexion.',
+    helpCode: "Code d'aide",
+    tryAgain: 'Veuillez reessayer',
+    contactSupport: "Si le probleme persiste, contactez le support avec le code d'aide."
+  },
+  success: {
+    registered: 'Inscription reussie ! Veuillez verifier votre email pour activer votre compte.',
+    activated: 'Votre compte a ete active. Vous pouvez maintenant vous connecter.',
+    passwordReset: 'Votre mot de passe a ete reinitialise. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.',
+    emailSent: 'Veuillez verifier votre email pour les instructions.',
+    loggedOut: 'Vous avez ete deconnecte avec succes.'
+  },
+  common: {
+    submit: 'Soumettre',
+    cancel: 'Annuler',
+    save: 'Enregistrer',
+    back: 'Retour',
+    next: 'Suivant',
+    loading: 'Chargement...',
+    or: 'ou'
+  }
+}
