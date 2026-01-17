@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "workflow": {
+    "autoExecuteAfterPlan": false,
+    "requirePlanApproval": true,
+    "autoCommit": true
+  },
+  "preferences": {
+    "verbosity": "normal",
+    "parallelAgents": true
+  }
+}
