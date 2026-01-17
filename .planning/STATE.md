@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 Phase: 1 of 7 (Foundation)
 Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-01-17 — Completed 01-02-PLAN.md
+Last activity: 2026-01-17 — Completed 01-01-PLAN.md
 
 Progress: ██░░░░░░░░ 14% (2 of ~14 plans)
 
@@ -42,6 +42,9 @@ Recent decisions affecting current work:
 
 | Phase | Decision | Rationale |
 |-------|----------|-----------|
+| 01-01 | Empty baseURL for axios | Backend uses relative paths with dev proxy |
+| 01-01 | Auto-redirect on 401 | Redirect to /login?expired=true on session expiry |
+| 01-01 | Unwrap response.data | API services receive data directly |
 | 01-02 | legacy: false for i18n | Enable useI18n() composable in Composition API |
 | 01-02 | globalInjection: true | Maintain template $t() support |
 
@@ -56,5 +59,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed 01-02-PLAN.md (Phase 1 complete)
+Stopped at: Completed 01-01-PLAN.md (Phase 1 complete)
 Resume file: None
