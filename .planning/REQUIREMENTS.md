@@ -86,9 +86,9 @@
 | COMP-01 | Phase 3 | Pending |
 | COMP-02 | Phase 3 | Pending |
 | COMP-03 | Phase 3 | Pending |
-| API-01 | Phase 2 | Pending |
-| API-02 | Phase 2 | Pending |
-| API-03 | Phase 2 | Pending |
+| API-01 | Phase 2 | Complete |
+| API-02 | Phase 2 | Complete |
+| API-03 | Phase 2 | Complete |
 | GLOB-01 | Phase 4 | Pending |
 | GLOB-02 | Phase 4 | Pending |
 | GLOB-03 | Phase 4 | Pending |
