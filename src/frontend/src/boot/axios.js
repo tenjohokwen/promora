@@ -1,5 +1,6 @@
 import { defineBoot } from '#q-app/wrappers';
 import axios from 'axios';
+import { recordActivity, stopSessionMonitoring, cleanup } from 'src/plugins/sessionManager';
 
 // Loading state management
 let pendingRequests = 0;
@@ -48,7 +49,10 @@ api.interceptors.request.use(
     pendingRequests++;
     notifyLoadingChange();
 
-    // TODO: Call recordActivity() here in Phase 3
+    // Record activity for session tracking (skip for /refresh endpoint)
+    if (!config.url?.includes('/refresh')) {
+      recordActivity();
+    }
 
     return config;
   },
@@ -83,6 +87,10 @@ api.interceptors.response.use(
       // Handle 401 - Unauthorized / Session expired
       if (status === 401) {
         if (errorKey === 'security.sessionExpired' || errorKey === 'security.unauthorized') {
+          // Stop session monitoring
+          stopSessionMonitoring();
+          cleanup();
+
           // Redirect to login with current path for redirect after login
           const currentPath = window.location.pathname + window.location.search;
           const redirectUrl = `/login?redirect=${encodeURIComponent(currentPath)}&expired=true`;
