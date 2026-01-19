@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-17)
 
 **Core value:** Complete frontend authentication and security UI for user registration, login, and account management
-**Current focus:** Phase 5 — Auth Pages (Complete)
+**Current focus:** Phase 6 — Account Pages (In Progress)
 
 ## Current Position
 
-Phase: 5 of 7 (Auth Pages)
-Plan: 3 of 3 in current phase
+Phase: 6 of 7 (Account Pages)
+Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-01-19 — Completed Phase 5
+Last activity: 2026-01-19 — Completed 06-01-PLAN.md
 
-Progress: ███████░░░ 75% (9 of ~12 plans)
+Progress: ████████░░ 83% (10 of ~12 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: ~2 min
-- Total execution time: ~18 min
+- Total execution time: ~20 min
 
 **By Phase:**
 
@@ -32,9 +32,10 @@ Progress: ███████░░░ 75% (9 of ~12 plans)
 | 3. Session Management | 2/2 | ~4 min | ~2 min |
 | 4. Global Components | 1/1 | ~2 min | ~2 min |
 | 5. Auth Pages | 3/3 | ~6 min | ~2 min |
+| 6. Account Pages | 1/1 | ~2 min | ~2 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01, 05-01, 05-02, 05-03
+- Last 5 plans: 05-01, 05-02, 05-03, 06-01
 - Trend: Consistent
 
 ## Accumulated Context
@@ -60,6 +61,9 @@ Recent decisions affecting current work:
 | 05-01 | Field error 'id' for email | Backend uses 'id' in fieldErrors for login identifier |
 | 05-02 | Computed genderOptions for i18n | Ensures options update when language changes |
 | 05-02 | Optional fields only sent if filled | Cleaner API payload, avoid sending empty strings |
+| 06-01 | computed for route.query.key | Ensures reactivity when key changes |
+| 06-01 | Auto-activate on mount | ActivatePage calls API immediately, no user action needed |
+| 06-01 | 3-second redirect countdown | Gives user time to read success message before redirect |
 
 ### Pending Todos
 
@@ -72,5 +76,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed Phase 5 (Auth Pages)
+Stopped at: Completed Phase 6 (Account Pages)
 Resume file: None
