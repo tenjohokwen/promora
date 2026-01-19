@@ -1,12 +1,50 @@
 const routes = [
+  // Root redirect to login
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    redirect: '/login',
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
+  // Auth pages (guest only)
+  {
+    path: '/login',
+    component: () => import('pages/auth/LoginPage.vue'),
+    meta: { requiresGuest: true },
+  },
+  {
+    path: '/register',
+    component: () => import('pages/auth/RegisterPage.vue'),
+    meta: { requiresGuest: true },
+  },
+  {
+    path: '/otp',
+    component: () => import('pages/auth/OtpPage.vue'),
+    meta: { requiresGuest: true },
+  },
+  {
+    path: '/forgot-password',
+    component: () => import('pages/auth/ForgotPasswordPage.vue'),
+    meta: { requiresGuest: true },
+  },
+  {
+    path: '/reset-password',
+    component: () => import('pages/auth/ResetPasswordPage.vue'),
+    meta: { requiresGuest: true },
+  },
+  {
+    path: '/activate',
+    component: () => import('pages/auth/ActivatePage.vue'),
+    meta: { requiresGuest: true },
+  },
+
+  // Protected pages (auth required)
+  {
+    path: '/dashboard',
+    component: () => import('pages/DashboardPage.vue'),
+    meta: { requiresAuth: true },
+  },
+
+  // Catch-all 404
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
