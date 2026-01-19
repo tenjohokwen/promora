@@ -33,5 +33,24 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   })
 
+  // Navigation guards for auth protection
+  Router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some((r) => r.meta.requiresAuth)
+    const requiresGuest = to.matched.some((r) => r.meta.requiresGuest)
+    const isAuthenticated = document.cookie.includes('user=')
+
+    if (requiresAuth && !isAuthenticated) {
+      next({ path: '/login', query: { redirect: to.fullPath } })
+      return
+    }
+
+    if (requiresGuest && isAuthenticated) {
+      next('/dashboard')
+      return
+    }
+
+    next()
+  })
+
   return Router
 })
