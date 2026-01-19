@@ -98,8 +98,8 @@
 | PAGE-04 | Phase 6 | Complete |
 | PAGE-05 | Phase 6 | Complete |
 | PAGE-06 | Phase 6 | Complete |
-| ROUT-01 | Phase 7 | Pending |
-| ROUT-02 | Phase 7 | Pending |
+| ROUT-01 | Phase 7 | Complete |
+| ROUT-02 | Phase 7 | Complete |
 | I18N-01 | Phase 1 | Complete |
 | I18N-02 | Phase 1 | Complete |
 | I18N-03 | Phase 1 | Complete |
