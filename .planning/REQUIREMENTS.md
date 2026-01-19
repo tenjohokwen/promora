@@ -92,9 +92,9 @@
 | GLOB-01 | Phase 4 | Complete |
 | GLOB-02 | Phase 4 | Complete |
 | GLOB-03 | Phase 4 | Complete |
-| PAGE-01 | Phase 5 | Pending |
-| PAGE-02 | Phase 5 | Pending |
-| PAGE-03 | Phase 5 | Pending |
+| PAGE-01 | Phase 5 | Complete |
+| PAGE-02 | Phase 5 | Complete |
+| PAGE-03 | Phase 5 | Complete |
 | PAGE-04 | Phase 6 | Pending |
 | PAGE-05 | Phase 6 | Pending |
 | PAGE-06 | Phase 6 | Pending |
