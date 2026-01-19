@@ -89,9 +89,9 @@
 | API-01 | Phase 2 | Complete |
 | API-02 | Phase 2 | Complete |
 | API-03 | Phase 2 | Complete |
-| GLOB-01 | Phase 4 | Pending |
-| GLOB-02 | Phase 4 | Pending |
-| GLOB-03 | Phase 4 | Pending |
+| GLOB-01 | Phase 4 | Complete |
+| GLOB-02 | Phase 4 | Complete |
+| GLOB-03 | Phase 4 | Complete |
 | PAGE-01 | Phase 5 | Pending |
 | PAGE-02 | Phase 5 | Pending |
 | PAGE-03 | Phase 5 | Pending |
