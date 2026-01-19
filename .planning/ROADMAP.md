@@ -15,7 +15,7 @@ Implement complete frontend authentication and security features for the Vue.js 
 - [x] **Phase 3: Session Management** - Session plugin and composables
 - [x] **Phase 4: Global Components** - Loading bar, session warning dialog
 - [x] **Phase 5: Auth Pages** - Login, register, and OTP pages
-- [ ] **Phase 6: Account Pages** - Password reset and activation pages
+- [x] **Phase 6: Account Pages** - Password reset and activation pages
 - [ ] **Phase 7: Router Integration** - Route definitions and auth guards
 
 ## Phase Details
@@ -123,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 3. Session Management | 2/2 | Complete | 2026-01-17 |
 | 4. Global Components | 1/1 | Complete | 2026-01-17 |
 | 5. Auth Pages | 3/3 | Complete | 2026-01-19 |
-| 6. Account Pages | 0/TBD | Not started | - |
+| 6. Account Pages | 1/1 | Complete | 2026-01-19 |
 | 7. Router Integration | 0/TBD | Not started | - |
 
 ---

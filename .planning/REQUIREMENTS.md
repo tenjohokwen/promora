@@ -95,9 +95,9 @@
 | PAGE-01 | Phase 5 | Complete |
 | PAGE-02 | Phase 5 | Complete |
 | PAGE-03 | Phase 5 | Complete |
-| PAGE-04 | Phase 6 | Pending |
-| PAGE-05 | Phase 6 | Pending |
-| PAGE-06 | Phase 6 | Pending |
+| PAGE-04 | Phase 6 | Complete |
+| PAGE-05 | Phase 6 | Complete |
+| PAGE-06 | Phase 6 | Complete |
 | ROUT-01 | Phase 7 | Pending |
 | ROUT-02 | Phase 7 | Pending |
 | I18N-01 | Phase 1 | Complete |
