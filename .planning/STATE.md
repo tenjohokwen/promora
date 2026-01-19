@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Phase: 5 of 7 (Auth Pages)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-19 — Completed 05-01-PLAN.md
+Last activity: 2026-01-19 — Completed 05-02-PLAN.md
 
-Progress: ██████░░░░ 58% (7 of ~12 plans)
+Progress: ██████░░░░ 67% (8 of ~12 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: ~2 min
-- Total execution time: ~14 min
+- Total execution time: ~16 min
 
 **By Phase:**
 
@@ -31,10 +31,10 @@ Progress: ██████░░░░ 58% (7 of ~12 plans)
 | 2. API Services | 1/1 | ~2 min | ~2 min |
 | 3. Session Management | 2/2 | ~4 min | ~2 min |
 | 4. Global Components | 1/1 | ~2 min | ~2 min |
-| 5. Auth Pages | 1/3 | ~2 min | ~2 min |
+| 5. Auth Pages | 2/3 | ~4 min | ~2 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01, 03-02, 04-01, 05-01
+- Last 5 plans: 03-02, 04-01, 05-01, 05-02
 - Trend: Consistent
 
 ## Accumulated Context
@@ -58,6 +58,8 @@ Recent decisions affecting current work:
 | 03-02 | Skip /refresh for activity tracking | Prevent refresh calls from resetting session timer |
 | 04-01 | Local dialogVisible ref for q-dialog | q-dialog needs writable v-model, showWarning is readonly |
 | 05-01 | Field error 'id' for email | Backend uses 'id' in fieldErrors for login identifier |
+| 05-02 | Computed genderOptions for i18n | Ensures options update when language changes |
+| 05-02 | Optional fields only sent if filled | Cleaner API payload, avoid sending empty strings |
 
 ### Pending Todos
 
@@ -70,5 +72,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 05-01-PLAN.md
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None
