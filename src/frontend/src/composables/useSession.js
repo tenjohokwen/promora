@@ -53,7 +53,7 @@ export function useSession() {
     // Call logout API - ignore errors (e.g., if already logged out)
     try {
       await authApi.logout();
-    } catch (e) {
+    } catch {
       // Ignore logout errors
     }
 
