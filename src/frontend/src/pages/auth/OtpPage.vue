@@ -83,11 +83,13 @@ import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { authApi } from 'src/api/auth.api';
 import { useErrorHandler } from 'src/composables/useErrorHandler';
+import { useSession } from 'src/composables/useSession';
 
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
 const { setError, clearError, hasError, errorMessage, helpCode } = useErrorHandler();
+const { initSession } = useSession();
 
 // State
 const digits = ref(['', '', '', '', '', '']);
@@ -166,6 +168,7 @@ async function handleSubmit() {
   isSubmitting.value = true;
   try {
     await authApi.verifyOtp(loginInfoId.value, otp);
+    initSession();
     router.push(redirectPath.value);
   } catch (err) {
     setError(err);
