@@ -23,7 +23,6 @@ import com.softropic.promora.security.manager.UnanimousAuthorizationManager;
 import com.softropic.promora.security.service.DaoAuthProvider;
 import com.softropic.promora.security.service.LoadUserByUserNameService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -75,11 +74,6 @@ import static com.softropic.promora.security.config.AppEndpoints.SECURED_ENDPOIN
                       jsr250Enabled = true)
 public class SecurityConfiguration {
 
-
-    @Autowired
-    @Qualifier("loginAttemptService")
-    private LoginDecisionManager<RequestMetadata> loginDecisionManager;
-
     @Bean
     public DaoAuthProvider authProvider(LoadUserByUserNameService loadUserByUserNameService) {
         final DaoAuthProvider authProvider = new DaoAuthProvider();
@@ -106,7 +100,8 @@ public class SecurityConfiguration {
     }
 
     @SuppressWarnings("PMD")
-    public FraudAwareAuthenticationManager fraudAwareAuthenticationManager(AuthenticationManager authenticationManager) {
+    public FraudAwareAuthenticationManager fraudAwareAuthenticationManager(AuthenticationManager authenticationManager,
+                                                                           LoginDecisionManager<RequestMetadata> loginDecisionManager) {
         return new FraudAwareAuthenticationManager(authenticationManager,
                                                    loginDecisionManager,
                                                    new AuthenticationManagerSimulator(passwordEncoder()));
@@ -157,6 +152,7 @@ public class SecurityConfiguration {
                                            LoginTokenManager loginTokenManager,
                                            SecurityUtil securityUtil,
                                            CorsConfiguration corsConfiguration,
+                                           @Qualifier("loginAttemptService") LoginDecisionManager<RequestMetadata> loginDecisionManager,
                                            Environment env) throws Exception {
         //TODO test first, then remove the following line
         //http.authorizeRequests().accessDecisionManager(accessDecisionManager);
@@ -186,7 +182,7 @@ public class SecurityConfiguration {
         );
         http.headers(customizer -> customizer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         http.authorizeHttpRequests(configureRequestMatching(authorizationManager, env));
-        http.addFilterAfter(new JWTAuthenticationFilter(fraudAwareAuthenticationManager(authenticationManager),
+        http.addFilterAfter(new JWTAuthenticationFilter(fraudAwareAuthenticationManager(authenticationManager, loginDecisionManager),
                                                         applicationEventPublisher,
                                                         handlerExceptionResolver,
                                                         twoFactorLoginManager,
