@@ -90,10 +90,12 @@ import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { authApi } from 'src/api/auth.api';
 import { useErrorHandler } from 'src/composables/useErrorHandler';
+import { useSession } from 'src/composables/useSession';
 
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
+const { initSession } = useSession();
 
 const {
   setError,
@@ -136,7 +138,8 @@ async function handleLogin() {
         }
       });
     } else {
-      // Login successful, redirect to dashboard or specified redirect
+      // Login successful, initialize session monitoring and redirect
+      initSession();
       router.push(route.query.redirect || '/dashboard');
     }
   } catch (err) {
