@@ -17,6 +17,7 @@ Implement complete frontend authentication and security features for the Vue.js 
 - [x] **Phase 5: Auth Pages** - Login, register, and OTP pages
 - [x] **Phase 6: Account Pages** - Password reset and activation pages
 - [x] **Phase 7: Router Integration** - Route definitions and auth guards
+- [ ] **Phase 8: Session Initialization** - Wire session monitoring after login (GAP CLOSURE)
 
 ## Phase Details
 
@@ -111,10 +112,21 @@ Implement complete frontend authentication and security features for the Vue.js 
 **Research**: Unlikely
 **Plans**: TBD
 
+### Phase 8: Session Initialization (GAP CLOSURE)
+**Goal**: Wire session monitoring to start after successful authentication
+**Depends on**: Phase 5, Phase 7
+**Gap Closure**: Closes integration gap from v1-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. LoginPage calls initSession() after successful login
+  2. OtpPage calls initSession() after successful OTP verification
+  3. Session warning dialog appears 2 minutes before session expiry
+**Research**: None (fix is documented in audit)
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -125,6 +137,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 5. Auth Pages | 3/3 | Complete | 2026-01-19 |
 | 6. Account Pages | 1/1 | Complete | 2026-01-19 |
 | 7. Router Integration | 1/1 | Complete | 2026-01-19 |
+| 8. Session Initialization | 0/TBD | Not started | - |
 
 ---
 
