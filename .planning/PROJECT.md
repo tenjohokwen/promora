@@ -65,14 +65,21 @@ The backend security infrastructure is complete (JWT authentication, 2FA/OTP, ac
 
 ## Success Criteria
 
-- All 6 auth pages render correctly and are mobile-responsive
-- Login flow works for both standard and 2FA-enabled accounts
-- Session warning appears 2 minutes before 15-minute expiry
-- Error messages display correctly with field-level validation
-- All text displays in English or French based on locale
-- Router guards prevent unauthorized access
-- Loading indicator shows during API requests
+- [x] All 6 auth pages render correctly and are mobile-responsive
+- [x] Login flow works for both standard and 2FA-enabled accounts
+- [x] Session warning appears 2 minutes before 15-minute expiry
+- [x] Error messages display correctly with field-level validation
+- [x] All text displays in English or French based on locale
+- [x] Router guards prevent unauthorized access
+- [x] Loading indicator shows during API requests
+
+## Milestone History
+
+| Version | Status | Completed | Summary |
+|---------|--------|-----------|---------|
+| v1.0.0 | Validated | 2026-01-20 | Complete frontend auth UI (23 requirements, 8 phases) |
 
 ---
 
 *Project initialized: 2026-01-17*
+*v1.0.0 completed: 2026-01-20*
