@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{email.creation_dup.title}">Security Alert</title>
+</head>
+<body>
+    <p>Hello <span th:text="${recipient.firstname}">User</span>,</p>
+
+    <p>Someone attempted to create an account using your email address.</p>
+
+    <p>If this was you and you forgot you already have an account, you can log in at:</p>
+    <p>
+        <a th:href="${map.baseUrl} + '/#/login'">Login to your account</a>
+    </p>
+
+    <p>If you forgot your password, you can reset it here:</p>
+    <p>
+        <a th:href="${map.baseUrl} + '/#/forgot-password'">Reset your password</a>
+    </p>
+
+    <p>If this was not you, please ignore this email. Your account is secure.</p>
+
+    <hr/>
+    <p><small>Help Code: <span th:text="${map.helpCode}">CODE</span></small></p>
+</body>
+</html>

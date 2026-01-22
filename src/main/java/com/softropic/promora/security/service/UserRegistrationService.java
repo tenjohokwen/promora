@@ -48,6 +48,7 @@ public class UserRegistrationService {
         newUser.setLogin(user.getLogin());
         newUser.setLoginIdType(user.getLoginIdType());
         newUser.setPassword(encryptedPassword);
+        newUser.setTitle(user.getTitle());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setEmail(user.getEmail());

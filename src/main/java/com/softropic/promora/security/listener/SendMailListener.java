@@ -60,6 +60,8 @@ public class SendMailListener {
         recipient.setLastname(user.getLastName());
         recipient.setEmail(user.getEmail());
         recipient.setLangKey(user.getLangKey());
+        recipient.setTitle(user.getTitle());
+        recipient.setGender(Objects.toString(user.getGender()));
         return recipient;
     }
 

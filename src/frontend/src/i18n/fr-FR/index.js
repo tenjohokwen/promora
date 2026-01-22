@@ -6,6 +6,12 @@ export default {
     email: 'Email',
     password: 'Mot de passe',
     confirmPassword: 'Confirmer le mot de passe',
+    title: 'Titre',
+    titleMr: 'M.',
+    titleMrs: 'Mme',
+    titleMs: 'Mlle',
+    titleDr: 'Dr',
+    titleProf: 'Prof.',
     firstName: 'Prenom',
     lastName: 'Nom',
     phone: 'Numero de telephone',
@@ -67,6 +73,7 @@ export default {
     back: 'Retour',
     next: 'Suivant',
     loading: 'Chargement...',
-    or: 'ou'
+    or: 'ou',
+    menu: 'Menu'
   }
 }

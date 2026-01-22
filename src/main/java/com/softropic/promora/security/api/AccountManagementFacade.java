@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -207,6 +208,8 @@ public class AccountManagementFacade {
         recipient.setLastname(user.getLastName());
         recipient.setEmail(user.getEmail());
         recipient.setLangKey(user.getLangKey());
+        recipient.setTitle(user.getTitle());
+        recipient.setGender(Objects.toString(user.getGender()));
         return recipient;
     }
 
@@ -220,6 +223,7 @@ public class AccountManagementFacade {
         user.setPhone(toPhoneNumber(userDTO.getPhone()));
         user.setLangKey(userDTO.getLangKey());
         user.setGender(userDTO.getGender());
+        user.setTitle(userDTO.getTitle());
         user.setDateOfBirth(userDTO.getDob());
         user.setOtpEnabled(userDTO.isOtpEnabled());
         return user;

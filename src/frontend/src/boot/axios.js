@@ -1,6 +1,8 @@
 import { defineBoot } from '#q-app/wrappers';
 import axios from 'axios';
+import { getCurrentBrowserFingerPrint } from '@rajesh896/broprint.js';
 import { recordActivity, stopSessionMonitoring, cleanup } from 'src/plugins/sessionManager';
+import { getCurrentLocale } from 'src/boot/i18n';
 
 // Loading state management
 let pendingRequests = 0;
@@ -36,6 +38,40 @@ function notifyLoadingChange() {
   });
 }
 
+/**
+ * Delete the user cookie (used on logout/session expiry)
+ */
+function deleteUserCookie() {
+  document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+/**
+ * Check if fcookie (fingerprint cookie) already exists
+ */
+function hasFingerprintCookie() {
+  return document.cookie.split(';').some((c) => c.trim().startsWith('fcookie='));
+}
+
+/**
+ * Set the browser fingerprint cookie (fcookie) for fraud prevention.
+ * Cookie is set with 1 year expiration and persists across sessions.
+ * Note: Named 'fcookie' (fingerprint) to distinguish from backend's 'bcookie'.
+ */
+async function setBrowserFingerprint() {
+  if (hasFingerprintCookie()) {
+    return; // Cookie already exists
+  }
+
+  try {
+    const fingerprint = await getCurrentBrowserFingerPrint();
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1); // 1 year expiration
+    document.cookie = `fcookie=${fingerprint}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Lax`;
+  } catch (error) {
+    console.error('Failed to generate browser fingerprint:', error);
+  }
+}
+
 // Create axios instance with credentials for cookie-based auth
 const api = axios.create({
   baseURL: '', // Empty string - backend uses relative paths with dev proxy
@@ -48,6 +84,9 @@ api.interceptors.request.use(
     // Increment pending requests counter
     pendingRequests++;
     notifyLoadingChange();
+
+    // Set Accept-Language header for i18n error messages from backend
+    config.headers['Accept-Language'] = getCurrentLocale();
 
     // Record activity for session tracking (skip for /refresh endpoint)
     if (!config.url?.includes('/refresh')) {
@@ -87,9 +126,12 @@ api.interceptors.response.use(
       // Handle 401 - Unauthorized / Session expired
       if (status === 401) {
         if (errorKey === 'security.sessionExpired' || errorKey === 'security.unauthorized') {
-          // Stop session monitoring
+          // Stop session monitoring and clean up
           stopSessionMonitoring();
           cleanup();
+
+          // Delete user cookie
+          deleteUserCookie();
 
           // Redirect to login with current path for redirect after login
           const currentPath = window.location.pathname + window.location.search;
@@ -123,10 +165,10 @@ api.interceptors.response.use(
   }
 );
 
-// Quasar boot wrapper - minimal setup since we use imports
-export default defineBoot(() => {
-  // Boot file is loaded but we don't set global properties
-  // Components import { api } from 'src/boot/axios' directly
+// Quasar boot wrapper - initialize browser fingerprint cookie
+export default defineBoot(async () => {
+  // Set browser fingerprint cookie for fraud prevention
+  await setBrowserFingerprint();
 });
 
 export { api, onLoadingChange };

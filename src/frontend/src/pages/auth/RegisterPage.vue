@@ -42,8 +42,21 @@
                 />
               </div>
 
-              <!-- Row 2: First Name and Last Name -->
-              <div class="col-12 col-md-6">
+              <!-- Row 2: Title, First Name and Last Name -->
+              <div class="col-12 col-md-2">
+                <q-select
+                  v-model="form.title"
+                  :options="titleOptions"
+                  :label="t('auth.title')"
+                  outlined
+                  emit-value
+                  map-options
+                  clearable
+                  :error="hasFieldError('title')"
+                  :error-message="getFieldError('title')"
+                />
+              </div>
+              <div class="col-12 col-md-5">
                 <q-input
                   v-model="form.firstName"
                   :label="t('auth.firstName')"
@@ -54,7 +67,7 @@
                   :error-message="getFieldError('firstName')"
                 />
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-5">
                 <q-input
                   v-model="form.lastName"
                   :label="t('auth.lastName')"
@@ -206,6 +219,7 @@ const form = ref({
   email: '',
   password: '',
   confirmPassword: '',
+  title: null,
   firstName: '',
   lastName: '',
   phone: '',
@@ -217,6 +231,15 @@ const form = ref({
 const isPwd = ref(true);
 const isPwd2 = ref(true);
 const isSubmitting = ref(false);
+
+// Title options
+const titleOptions = computed(() => [
+  { label: t('auth.titleMr'), value: 'Mr.' },
+  { label: t('auth.titleMrs'), value: 'Mrs.' },
+  { label: t('auth.titleMs'), value: 'Ms.' },
+  { label: t('auth.titleDr'), value: 'Dr.' },
+  { label: t('auth.titleProf'), value: 'Prof.' },
+]);
 
 // Gender options
 const genderOptions = computed(() => [
@@ -250,6 +273,10 @@ async function handleRegister() {
     };
 
     // Add optional fields only if they have values
+    if (form.value.title != null && form.value.title !== '') {
+      // Handle both string value and object (in case emit-value doesn't work)
+      userData.title = typeof form.value.title === 'object' ? form.value.title.value : form.value.title;
+    }
     if (form.value.phone) {
       userData.phone = form.value.phone;
     }

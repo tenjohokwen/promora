@@ -3,6 +3,8 @@ import { useRouter } from 'vue-router';
 import {
   showWarning,
   timeUntilExpiry,
+  secondsRemaining,
+  minutesRemaining,
   isRefreshing,
   startSessionMonitoring,
   stopSessionMonitoring,
@@ -18,6 +20,7 @@ import { authApi } from 'src/api/auth.api';
  * @returns {{
  *   showWarning: import('vue').ComputedRef<boolean>,
  *   timeUntilExpiry: import('vue').ComputedRef<number>,
+ *   secondsRemaining: import('vue').ComputedRef<number>,
  *   minutesRemaining: import('vue').ComputedRef<number>,
  *   isRefreshing: import('vue').ComputedRef<boolean>,
  *   handleRefresh: () => Promise<void>,
@@ -32,7 +35,8 @@ export function useSession() {
   // Re-export reactive refs as computed for component use
   const showWarningComputed = computed(() => showWarning.value);
   const timeUntilExpiryComputed = computed(() => timeUntilExpiry.value);
-  const minutesRemaining = computed(() => Math.ceil(timeUntilExpiry.value / 60000));
+  const secondsRemainingComputed = computed(() => secondsRemaining.value);
+  const minutesRemainingComputed = computed(() => minutesRemaining.value);
   const isRefreshingComputed = computed(() => isRefreshing.value);
 
   /**
@@ -84,7 +88,8 @@ export function useSession() {
   return {
     showWarning: showWarningComputed,
     timeUntilExpiry: timeUntilExpiryComputed,
-    minutesRemaining,
+    secondsRemaining: secondsRemainingComputed,
+    minutesRemaining: minutesRemainingComputed,
     isRefreshing: isRefreshingComputed,
     handleRefresh,
     handleLogout,

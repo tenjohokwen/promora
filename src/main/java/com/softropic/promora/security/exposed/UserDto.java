@@ -32,6 +32,9 @@ public class UserDto {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    @Size(max = 25)
+    private String title;
+
     @Size(max = 50)
     private String firstName;
 
@@ -91,6 +94,14 @@ public class UserDto {
     public void setPassword(@NotNull @Size(min = PASSWORD_MIN_LENGTH,
                                            max = PASSWORD_MAX_LENGTH) String password) {
         this.password = password;
+    }
+
+    public @Size(max = 25) String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@Size(max = 25) String title) {
+        this.title = title;
     }
 
     public @Size(max = 50) String getFirstName() {
@@ -182,6 +193,7 @@ public class UserDto {
         return "{\"UserDTO\":{"
                 + "\"login\":\"" + login + "\""
                 + ", \"password\":\"" + password + "\""
+                + ", \"title\":\"" + title + "\""
                 + ", \"firstName\":\"" + firstName + "\""
                 + ", \"lastName\":\"" + lastName + "\""
                 + ", \"email\":\"" + email + "\""

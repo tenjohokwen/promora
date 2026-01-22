@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -162,6 +163,8 @@ public class EmailRegistrationStrategy implements RegistrationNotificationStrate
         recipient.setLastname(user.getLastName());
         recipient.setEmail(user.getEmail());
         recipient.setLangKey(user.getLangKey());
+        recipient.setTitle(user.getTitle());
+        recipient.setGender(Objects.toString(user.getGender()));
         return recipient;
     }
 }

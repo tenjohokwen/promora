@@ -129,11 +129,11 @@ async function handleLogin() {
     const response = await authApi.login(form.value.email, form.value.password, 1);
 
     // Check if 2FA is required
-    if (response.message === 'check.otp') {
+    if (response.msgKey === 'check.otp') {
       router.push({
         path: '/otp',
         query: {
-          id: response.data.loginInfoId,
+          id: response.payload.loginInfoId,
           redirect: route.query.redirect
         }
       });
