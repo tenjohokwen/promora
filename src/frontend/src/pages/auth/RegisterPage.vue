@@ -145,7 +145,7 @@
                 />
               </div>
 
-              <!-- Row 5: Gender and OTP (Optional) -->
+              <!-- Row 5: Gender and Language Preference -->
               <div class="col-12 col-md-6">
                 <q-select
                   v-model="form.gender"
@@ -159,10 +159,25 @@
                   :error-message="getFieldError('gender')"
                 />
               </div>
+              <div class="col-12 col-md-6">
+                <q-select
+                  v-model="form.langKey"
+                  :options="languageOptions"
+                  :label="t('auth.preferredLanguage')"
+                  outlined
+                  emit-value
+                  map-options
+                  :rules="[required]"
+                  :error="hasFieldError('langKey')"
+                  :error-message="getFieldError('langKey')"
+                />
+              </div>
+
+              <!-- Row 6: OTP (Optional) -->
               <div class="col-12 col-md-6 flex items-center">
                 <q-checkbox
                   v-model="form.otpEnabled"
-                  label="Enable Two-Factor Authentication"
+                  :label="t('auth.enableTwoFactor')"
                 />
               </div>
             </div>
@@ -225,6 +240,7 @@ const form = ref({
   phone: '',
   dob: '',
   gender: null,
+  langKey: 'en',
   otpEnabled: false,
 });
 
@@ -246,6 +262,12 @@ const genderOptions = computed(() => [
   { label: t('auth.male'), value: 'MALE' },
   { label: t('auth.female'), value: 'FEMALE' },
   { label: t('auth.other'), value: 'OTHER' },
+]);
+
+// Language options
+const languageOptions = computed(() => [
+  { label: t('auth.languageEnglish'), value: 'en' },
+  { label: t('auth.languageFrench'), value: 'fr' },
 ]);
 
 // Validation rules
@@ -270,6 +292,7 @@ async function handleRegister() {
       password: form.value.password,
       firstName: form.value.firstName,
       lastName: form.value.lastName,
+      langKey: form.value.langKey,
     };
 
     // Add optional fields only if they have values

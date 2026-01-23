@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center q-pa-md">
-    <div class="col-12 col-sm-8 col-md-6 col-lg-4" style="max-width: 400px">
-      <q-card>
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4" style="max-width: 400px; width: 100%">
+      <q-card style="min-height: 450px">
         <q-card-section>
           <div class="text-h5 text-center">{{ t('auth.forgotPassword').replace('?', '') }}</div>
         </q-card-section>
@@ -51,14 +51,16 @@
               </template>
             </q-banner>
 
-            <q-btn
-              type="submit"
-              color="primary"
-              class="full-width q-mt-md"
-              :loading="isSubmitting"
-              :disable="isSubmitting"
-              :label="t('common.submit')"
-            />
+            <div class="q-mt-md">
+              <q-btn
+                type="submit"
+                color="primary"
+                class="full-width"
+                :loading="isSubmitting"
+                :disable="isSubmitting"
+                :label="t('common.submit')"
+              />
+            </div>
           </q-form>
         </q-card-section>
 

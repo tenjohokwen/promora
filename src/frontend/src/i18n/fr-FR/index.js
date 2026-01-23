@@ -32,7 +32,11 @@ export default {
     enterOtp: 'Entrer le code de verification',
     otpSent: 'Un code de verification a ete envoye a votre email',
     resendOtp: 'Renvoyer le code',
-    verifyOtp: 'Verifier'
+    verifyOtp: 'Verifier',
+    enableTwoFactor: "Activer l'authentification a deux facteurs",
+    preferredLanguage: 'Langue preferee',
+    languageEnglish: 'Anglais',
+    languageFrench: 'Francais'
   },
   session: {
     expiring: 'Session expirant',
