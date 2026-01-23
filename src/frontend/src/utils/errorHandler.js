@@ -28,7 +28,7 @@ const defaultErrorKeyByStatus = {
   400: 'validation.badRequest',
   401: 'security.unauthorized',
   403: 'security.opForbidden',
-  404: 'generic.notFound',
+  404: 'error.notFound',
 };
 
 /**
@@ -50,7 +50,7 @@ export function parseApiError(error) {
   if (!error.response) {
     return {
       helpCode: null,
-      errorKey: 'generic.network',
+      errorKey: 'error.network',
       message: 'Network error. Please check your connection.',
       fieldErrors: {},
       isValidationError: false,
@@ -67,9 +67,9 @@ export function parseApiError(error) {
   let errorKey = data?.errorMsg?.errorKey;
   if (!errorKey) {
     if (status >= 500) {
-      errorKey = 'generic.unknown';
+      errorKey = 'error.unknown';
     } else {
-      errorKey = defaultErrorKeyByStatus[status] || 'generic.unknown';
+      errorKey = defaultErrorKeyByStatus[status] || 'error.unknown';
     }
   }
 

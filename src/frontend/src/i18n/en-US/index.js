@@ -54,14 +54,31 @@ export default {
     passwordMatch: 'Passwords do not match',
     passwordStrength: 'Password must contain at least one uppercase letter, one lowercase letter, and one number',
     invalidDate: 'Please enter a valid date',
-    pastDate: 'Date must be in the past'
+    pastDate: 'Date must be in the past',
+    badRequest: 'The request is not valid. Check method argument mismatch, missing parameters e.t.c.',
+    invalidData: 'Invalid Data'
   },
   error: {
     generic: 'An unexpected error occurred. Please try again.',
     network: 'Network error. Please check your connection.',
     helpCode: 'Help Code',
     tryAgain: 'Please try again',
-    contactSupport: 'If the problem persists, contact support with the help code.'
+    contactSupport: 'If the problem persists, contact support with the help code.',
+    unknown: 'An unknown Exception has occurred',
+    dataError: 'Data integrity error',
+    notFound: 'The requested resource was not found'
+  },
+  security: {
+    unauthorized: 'You do not have the required rights. You can contact help desk',
+    authError: 'Authentication issue has occurred.',
+    accountExpired: 'Your account has expired.',
+    credExpired: 'Your credentials have expired.',
+    accNotEnabled: 'Your account is not enabled.',
+    accLocked: 'There is an issue with your account. Check your email and contact the support team. Remember to save the help code.',
+    badCreds: 'The login and password combination does not exist',
+    opForbidden: 'Access has been denied. You can contact help desk',
+    sessionExpired: 'Your session is no longer valid. You need to sign-in again',
+    generic: 'Internal unknown exception. You can contact help desk with your help code'
   },
   success: {
     registered: 'Registration successful! Please check your email to activate your account.',

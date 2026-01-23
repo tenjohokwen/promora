@@ -9,10 +9,14 @@
         <q-card-section>
           <q-banner
             v-if="hasError && !isValidationError"
-            type="warning"
             class="q-mb-md bg-negative text-white"
+            rounded
           >
             {{ errorMessage }}
+            <template v-if="helpCode">
+              <br />
+              <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+            </template>
           </q-banner>
 
           <q-form @submit.prevent="handleRegister">
@@ -224,6 +228,7 @@ const {
   hasError,
   errorMessage,
   isValidationError,
+  helpCode,
   hasFieldError,
   getFieldError,
 } = useErrorHandler();

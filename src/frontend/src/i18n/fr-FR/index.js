@@ -54,14 +54,31 @@ export default {
     passwordMatch: 'Les mots de passe ne correspondent pas',
     passwordStrength: 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
     invalidDate: 'Veuillez entrer une date valide',
-    pastDate: 'La date doit etre dans le passe'
+    pastDate: 'La date doit etre dans le passe',
+    badRequest: "La requete n'est pas valide. Verifiez les arguments de methode, les parametres manquants, etc.",
+    invalidData: 'Donnees invalides'
   },
   error: {
     generic: 'Une erreur inattendue est survenue. Veuillez reessayer.',
     network: 'Erreur reseau. Veuillez verifier votre connexion.',
     helpCode: "Code d'aide",
     tryAgain: 'Veuillez reessayer',
-    contactSupport: "Si le probleme persiste, contactez le support avec le code d'aide."
+    contactSupport: "Si le probleme persiste, contactez le support avec le code d'aide.",
+    unknown: "Une exception inconnue s'est produite",
+    dataError: "Erreur d'integrite des donnees",
+    notFound: "La ressource demandee n'a pas ete trouvee"
+  },
+  security: {
+    unauthorized: "Vous n'avez pas les droits requis. Vous pouvez contacter le support",
+    authError: "Un probleme d'authentification s'est produit.",
+    accountExpired: 'Votre compte a expire.',
+    credExpired: 'Vos identifiants ont expire.',
+    accNotEnabled: "Votre compte n'est pas active.",
+    accLocked: "Il y a un probleme avec votre compte. Verifiez votre email et contactez l'equipe de support. N'oubliez pas de sauvegarder le code d'aide.",
+    badCreds: "La combinaison identifiant et mot de passe n'existe pas",
+    opForbidden: "L'acces a ete refuse. Vous pouvez contacter le support",
+    sessionExpired: "Votre session n'est plus valide. Vous devez vous reconnecter",
+    generic: "Exception interne inconnue. Vous pouvez contacter le support avec votre code d'aide"
   },
   success: {
     registered: 'Inscription reussie ! Veuillez verifier votre email pour activer votre compte.',

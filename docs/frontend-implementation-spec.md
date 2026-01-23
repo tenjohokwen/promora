@@ -487,54 +487,494 @@ export { sessionApi } from './session.api';
 }
 ```
 
-### 7.2 Error Keys Reference
+### 7.2 Error Translation Flow
 
+The frontend uses the `errorKey` from the backend response to display translated error messages:
+
+1. **Backend returns error** with `errorMsg.errorKey` (e.g., `security.opForbidden`)
+2. **Error parser** extracts the `errorKey` from the response
+3. **useErrorHandler composable** checks if a translation exists for the key using `te(errorKey)`
+4. **If translation exists**: Display the translated message from i18n
+5. **If no translation**: Fall back to `errorMsg.message` from the server
+
+```
+Backend Response                    Frontend Display
+─────────────────                   ────────────────
+{
+  "errorMsg": {                     ┌─────────────────────────────┐
+    "errorKey": "security.opForbidden",  │ 1. Check: te('security.opForbidden') │
+    "message": "The operation..."   │ 2. Found? → t('security.opForbidden') │
+  }                                 │ 3. Not found? → Use raw message  │
+}                                   └─────────────────────────────┘
+```
+
+### 7.2.1 Consistent Error Display Pattern
+
+All pages MUST use a consistent error display pattern to ensure uniform user experience across the application. This pattern handles both general errors (API failures, server errors) and field-level validation errors.
+
+#### Standard Error Banner Component
+
+Use this exact pattern for displaying non-validation errors at the top of forms or page content:
+
+```vue
+<q-banner
+  v-if="hasError && !isValidationError"
+  class="bg-negative text-white q-mb-md"
+  rounded
+>
+  {{ errorMessage }}  <!-- Automatically translated via errorKey -->
+  <template v-if="helpCode">
+    <br />
+    <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+  </template>
+</q-banner>
+```
+
+**Key attributes explained:**
+
+| Attribute | Purpose |
+|-----------|---------|
+| `v-if="hasError && !isValidationError"` | Only show for non-field errors (API errors, server errors). Field errors are displayed inline on form inputs. |
+| `class="bg-negative text-white"` | Quasar's negative color (red by default) with white text for high visibility |
+| `class="q-mb-md"` | Consistent margin-bottom spacing before form content |
+| `rounded` | Rounded corners matching Quasar's design language |
+| `{{ errorMessage }}` | Pre-translated message from useErrorHandler (automatically uses i18n) |
+| `{{ helpCode }}` | Support reference code for troubleshooting - only shown when available |
+
+#### Implementation Checklist for New Pages
+
+When creating a new page that makes API calls, follow these steps:
+
+**Step 1: Import and Initialize useErrorHandler**
+
+```vue
+<script setup>
+import { useErrorHandler } from 'src/composables/useErrorHandler';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+const {
+  setError,
+  clearError,
+  hasError,
+  errorMessage,
+  errorKey,
+  helpCode,
+  isValidationError,
+  hasFieldError,
+  getFieldError
+} = useErrorHandler();
+</script>
+```
+
+**Step 2: Add Error Banner to Template**
+
+Place the error banner immediately before your form or main content area:
+
+```vue
+<template>
+  <q-page class="flex flex-center">
+    <q-card class="q-pa-lg" style="width: 100%; max-width: 400px;">
+      <q-card-section>
+        <div class="text-h5 text-center q-mb-md">{{ t('page.title') }}</div>
+
+        <!-- ERROR BANNER - Place before form -->
+        <q-banner
+          v-if="hasError && !isValidationError"
+          class="bg-negative text-white q-mb-md"
+          rounded
+        >
+          {{ errorMessage }}
+          <template v-if="helpCode">
+            <br />
+            <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+          </template>
+        </q-banner>
+
+        <!-- FORM CONTENT -->
+        <q-form @submit="handleSubmit">
+          <!-- Form fields here -->
+        </q-form>
+      </q-card-section>
+    </q-card>
+  </q-page>
+</template>
+```
+
+**Step 3: Handle Errors in Submit Function**
+
+```javascript
+async function handleSubmit() {
+  clearError();  // Always clear previous errors before new submission
+  loading.value = true;
+
+  try {
+    const response = await someApi.action(formData);
+    // Handle success
+  } catch (err) {
+    setError(err);  // Parse and set error - translation happens automatically
+  } finally {
+    loading.value = false;
+  }
+}
+```
+
+**Step 4: Handle Field-Level Validation Errors**
+
+For forms with multiple fields, use `hasFieldError()` and `getFieldError()` to display inline validation messages:
+
+```vue
+<q-input
+  v-model="form.email"
+  :label="t('auth.email')"
+  type="email"
+  :error="hasFieldError('email')"
+  :error-message="getFieldError('email')"
+  lazy-rules
+  :rules="[
+    val => !!val || t('validation.required'),
+    val => isValidEmail(val) || t('validation.email')
+  ]"
+/>
+
+<q-input
+  v-model="form.password"
+  :label="t('auth.password')"
+  type="password"
+  :error="hasFieldError('password')"
+  :error-message="getFieldError('password')"
+  lazy-rules
+  :rules="[val => !!val || t('validation.required')]"
+/>
+```
+
+**Field error props explained:**
+
+| Prop | Source | Purpose |
+|------|--------|---------|
+| `:error="hasFieldError('fieldName')"` | useErrorHandler | Sets input to error state when backend returns validation error for this field |
+| `:error-message="getFieldError('fieldName')"` | useErrorHandler | Displays the server-provided error message below the field |
+| `:rules="[...]"` | Local validation | Client-side validation rules (runs before submission) |
+
+#### Error Type Handling Summary
+
+| Error Type | Display Method | Condition |
+|------------|----------------|-----------|
+| API/Server errors (401, 403, 500) | Error banner at top | `hasError && !isValidationError` |
+| Field validation errors | Inline on each field | `hasFieldError('fieldName')` |
+| Client-side validation | Inline via `:rules` | Form validation before submit |
+
+#### Complete Page Example
+
+```vue
+<template>
+  <q-page class="flex flex-center">
+    <q-card class="q-pa-lg" style="width: 100%; max-width: 400px;">
+      <q-card-section>
+        <div class="text-h5 text-center q-mb-md">{{ t('auth.register') }}</div>
+
+        <!-- General error banner -->
+        <q-banner
+          v-if="hasError && !isValidationError"
+          class="bg-negative text-white q-mb-md"
+          rounded
+        >
+          {{ errorMessage }}
+          <template v-if="helpCode">
+            <br />
+            <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+          </template>
+        </q-banner>
+
+        <q-form @submit="handleSubmit" class="q-gutter-md">
+          <q-input
+            v-model="form.email"
+            :label="t('auth.email')"
+            type="email"
+            :error="hasFieldError('email')"
+            :error-message="getFieldError('email')"
+            lazy-rules
+            :rules="[
+              val => !!val || t('validation.required'),
+              val => isValidEmail(val) || t('validation.email')
+            ]"
+          />
+
+          <q-input
+            v-model="form.password"
+            :label="t('auth.password')"
+            :type="showPassword ? 'text' : 'password'"
+            :error="hasFieldError('password')"
+            :error-message="getFieldError('password')"
+            lazy-rules
+            :rules="[
+              val => !!val || t('validation.required'),
+              val => val.length >= 5 || t('validation.minLength', { min: 5 })
+            ]"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="showPassword ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="showPassword = !showPassword"
+              />
+            </template>
+          </q-input>
+
+          <q-btn
+            type="submit"
+            :label="t('auth.register')"
+            color="primary"
+            class="full-width"
+            :loading="loading"
+            :disable="loading"
+          />
+        </q-form>
+      </q-card-section>
+    </q-card>
+  </q-page>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useErrorHandler } from 'src/composables/useErrorHandler';
+import { accountApi } from 'src/api';
+
+const { t } = useI18n();
+const {
+  setError,
+  clearError,
+  hasError,
+  errorMessage,
+  helpCode,
+  isValidationError,
+  hasFieldError,
+  getFieldError
+} = useErrorHandler();
+
+const loading = ref(false);
+const showPassword = ref(false);
+const form = ref({
+  email: '',
+  password: ''
+});
+
+function isValidEmail(val) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(val);
+}
+
+async function handleSubmit() {
+  clearError();
+  loading.value = true;
+
+  try {
+    await accountApi.register(form.value);
+    // Handle success - redirect or show message
+  } catch (err) {
+    setError(err);
+  } finally {
+    loading.value = false;
+  }
+}
+</script>
+```
+
+#### Styling Consistency Guidelines
+
+To maintain visual consistency across all pages:
+
+1. **Error banner placement**: Always immediately before the form/content area, inside the card section
+2. **Spacing**: Use `q-mb-md` class on the banner for consistent spacing
+3. **Colors**: Always use `bg-negative text-white` for error banners
+4. **Help code format**: Always use `<small>` tag with line break for secondary information
+5. **Field errors**: Let Quasar's built-in error styling handle field-level display
+
+### 7.3 Error Keys Reference
+
+Error keys are organized by category in the i18n files:
+
+**Error Keys (`error.*`)**
+| Error Key | Description |
+|-----------|-------------|
+| `error.generic` | Generic unexpected error |
+| `error.network` | Network/connection error |
+| `error.unknown` | Unknown server exception |
+| `error.dataError` | Data integrity error |
+| `error.notFound` | Resource not found |
+
+**Security Keys (`security.*`)**
 | Error Key | HTTP Status | Description |
 |-----------|-------------|-------------|
-| `generic.unknown` | 500 | Unknown server error |
-| `generic.network` | 0 | Network/connection error |
-| `security.badCreds` | 401 | Invalid credentials |
-| `security.unauthorized` | 401 | Not authenticated |
-| `security.sessionExpired` | 401 | JWT expired |
+| `security.unauthorized` | 401 | Not authenticated / insufficient rights |
+| `security.authError` | 401 | Authentication issue |
+| `security.badCreds` | 401 | Invalid login/password combination |
+| `security.sessionExpired` | 401 | JWT/session expired |
 | `security.accNotEnabled` | 401 | Account not activated |
 | `security.accLocked` | 401 | Account locked |
 | `security.accountExpired` | 401 | Account expired |
 | `security.credExpired` | 401 | Credentials expired |
-| `security.opForbidden` | 403 | Operation forbidden |
-| `validation.invalidData` | 400 | Field validation errors |
-| `validation.badRequest` | 400 | Bad request format |
+| `security.opForbidden` | 403 | Operation forbidden / access denied |
+| `security.generic` | 500 | Internal security exception |
 
-### 7.3 Error Parser Utility
+**Validation Keys (`validation.*`)**
+| Error Key | HTTP Status | Description |
+|-----------|-------------|-------------|
+| `validation.badRequest` | 400 | Invalid request format |
+| `validation.invalidData` | 400 | Field validation errors |
+
+### 7.4 Error Parser Utility
 
 **File:** `src/utils/errorHandler.js`
 
-**Functions to implement:**
+Parses axios errors and extracts ErrorDto fields:
 
 ```javascript
 // Parse API error into structured object
 parseApiError(error) → {
   helpCode: string | null,
-  errorKey: string,
-  message: string,
+  errorKey: string,        // e.g., "security.opForbidden"
+  message: string,         // Raw message from server (fallback)
   fieldErrors: { [fieldName]: message },
   isValidationError: boolean,
   status: number
 }
 
-// Check if validation error
-isValidationError(error) → boolean
+// Default error keys by HTTP status (when server doesn't provide errorKey)
+const defaultErrorKeyByStatus = {
+  400: 'validation.badRequest',
+  401: 'security.unauthorized',
+  403: 'security.opForbidden',
+  404: 'error.notFound',
+};
+// 500+ errors default to 'error.unknown'
+// Network errors (no response) default to 'error.network'
+```
 
-// Get field error message
-getFieldError(error, fieldName) → string | null
+### 7.5 Error Handler Composable
 
-// Get all field errors
-getFieldErrors(error) → { [fieldName]: message }
+**File:** `src/composables/useErrorHandler.js`
 
-// Get main error message
-getErrorMessage(error) → string
+Uses vue-i18n to provide translated error messages:
 
-// Get help code
-getHelpCode(error) → string | null
+```javascript
+import { useI18n } from 'vue-i18n';
+
+export function useErrorHandler() {
+  const { t, te } = useI18n();
+
+  // Translated error message - uses errorKey for translation, falls back to raw message
+  const errorMessage = computed(() => {
+    if (!error.value) return null;
+
+    const key = error.value.errorKey;
+    if (key && te(key)) {
+      return t(key);  // Return translated message
+    }
+    // Fallback to raw message from server
+    return error.value.message || null;
+  });
+
+  // ... rest of composable
+}
+```
+
+**Returns:**
+```javascript
+{
+  error,            // readonly ref - full error object
+  fieldErrors,      // computed - { fieldName: message }
+  hasError,         // computed - boolean
+  errorMessage,     // computed - TRANSLATED error message (or fallback)
+  errorKey,         // computed - raw error key for custom handling
+  helpCode,         // computed - support help code
+  isValidationError,// computed - is field validation error
+  setError,         // function(err) - parse and set error
+  clearError,       // function - clear all errors
+  hasFieldError,    // function(fieldName) - boolean
+  getFieldError     // function(fieldName) - message or null
+}
+```
+
+### 7.6 Usage in Components
+
+Components use `errorMessage` which automatically displays translated text:
+
+```vue
+<template>
+  <q-banner v-if="hasError && !isValidationError" class="bg-negative text-white">
+    {{ errorMessage }}  <!-- Automatically translated -->
+    <template v-if="helpCode">
+      <br />
+      <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+    </template>
+  </q-banner>
+</template>
+
+<script setup>
+import { useErrorHandler } from 'src/composables/useErrorHandler';
+
+const {
+  setError,
+  clearError,
+  hasError,
+  errorMessage,     // Translated message
+  isValidationError,
+  helpCode,
+  hasFieldError,
+  getFieldError
+} = useErrorHandler();
+
+async function handleSubmit() {
+  clearError();
+  try {
+    await api.someAction();
+  } catch (err) {
+    setError(err);  // Error is parsed and translated automatically
+  }
+}
+</script>
+```
+
+### 7.7 i18n Error Keys Structure
+
+Both `en-US/index.js` and `fr-FR/index.js` must include these error keys:
+
+```javascript
+export default {
+  // ... other keys ...
+
+  error: {
+    generic: 'An unexpected error occurred. Please try again.',
+    network: 'Network error. Please check your connection.',
+    unknown: 'An unknown Exception has occurred',
+    dataError: 'Data integrity error',
+    notFound: 'The requested resource was not found',
+    helpCode: 'Help Code',
+    tryAgain: 'Please try again',
+    contactSupport: 'If the problem persists, contact support with the help code.'
+  },
+
+  security: {
+    unauthorized: 'You do not have the required rights. You can contact help desk',
+    authError: 'Authentication issue has occurred.',
+    accountExpired: 'Your account has expired.',
+    credExpired: 'Your credentials have expired.',
+    accNotEnabled: 'Your account is not enabled.',
+    accLocked: 'There is an issue with your account. Check your email and contact the support team. Remember to save the help code.',
+    badCreds: 'The login and password combination does not exist',
+    opForbidden: 'Access has been denied. You can contact help desk',
+    sessionExpired: 'Your session is no longer valid. You need to sign-in again',
+    generic: 'Internal unknown exception. You can contact help desk with your help code'
+  },
+
+  validation: {
+    // ... existing validation keys ...
+    badRequest: 'The request is not valid. Check method argument mismatch, missing parameters e.t.c.',
+    invalidData: 'Invalid Data'
+  }
+};
 ```
 
 ---

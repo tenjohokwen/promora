@@ -1,9 +1,11 @@
 import { ref, computed, readonly } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { parseApiError } from 'src/utils/errorHandler';
 
 /**
  * Composable for handling API errors with reactive state.
  * Wraps the errorHandler utility with Vue reactivity.
+ * Uses i18n to translate error messages based on errorKey.
  *
  * @returns {{
  *   error: import('vue').Ref,
@@ -20,16 +22,29 @@ import { parseApiError } from 'src/utils/errorHandler';
  * }}
  */
 export function useErrorHandler() {
+  const { t, te } = useI18n();
+
   // Internal state - parsed error object
   const error = ref(null);
 
   // Computed properties for easy access
   const fieldErrors = computed(() => error.value?.fieldErrors || {});
   const hasError = computed(() => error.value !== null);
-  const errorMessage = computed(() => error.value?.message || null);
   const errorKey = computed(() => error.value?.errorKey || null);
   const helpCode = computed(() => error.value?.helpCode || null);
   const isValidationError = computed(() => error.value?.isValidationError || false);
+
+  // Translated error message - uses errorKey for translation, falls back to raw message
+  const errorMessage = computed(() => {
+    if (!error.value) return null;
+
+    const key = error.value.errorKey;
+    if (key && te(key)) {
+      return t(key);
+    }
+    // Fallback to raw message from server
+    return error.value.message || null;
+  });
 
   /**
    * Set error from API error object.
