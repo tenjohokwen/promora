@@ -125,8 +125,6 @@ const currentLanguageLabel = computed(() => {
 });
 
 // Get username from cookie
-const username = ref('');
-
 function getUsernameFromCookie() {
   const match = document.cookie.match(/user=([^;]+)/);
   if (match) {
@@ -140,9 +138,12 @@ function getUsernameFromCookie() {
   return '';
 }
 
-// Check if user is authenticated
+// Initialize username immediately for reactive auth state
+const username = ref(getUsernameFromCookie());
+
+// Check if user is authenticated (derived from username which is updated periodically)
 const isAuthenticated = computed(() => {
-  return document.cookie.includes('user=');
+  return !!username.value;
 });
 
 // Update username when component mounts and on cookie changes
@@ -178,8 +179,11 @@ async function handleLogout() {
     // Ignore logout errors (may already be logged out)
   }
 
-  // Clean up session and cookie
+  // Clean up session monitoring
   destroySession();
+
+  // Clear username and cookie (updates isAuthenticated immediately)
+  username.value = '';
   deleteUserCookie();
 
   // Redirect to login
@@ -188,6 +192,7 @@ async function handleLogout() {
 
 // Listen for session expired event
 function onSessionExpired() {
+  username.value = '';
   deleteUserCookie();
 }
 
