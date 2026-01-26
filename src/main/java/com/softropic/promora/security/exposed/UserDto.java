@@ -2,7 +2,6 @@ package com.softropic.promora.security.exposed;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.softropic.promora.common.Gender;
-import com.softropic.promora.common.dto.PhoneNumberDto;
 import com.softropic.promora.common.validation.CamPhone;
 
 import java.time.LocalDate;
@@ -22,7 +21,6 @@ public class UserDto {
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
 
-    @NotNull
     //@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE)
     //@Size(min = 5, max = 100)
     private String login;
@@ -49,7 +47,7 @@ public class UserDto {
 
     @NotNull
     @CamPhone
-    private PhoneNumberDto phone;
+    private String phone;
 
     private boolean activated = false;
 
@@ -61,6 +59,9 @@ public class UserDto {
     @NotNull
     private Gender gender;
 
+    @Size(min = 5, max = 50)
+    private String nationalId;
+
     @Past
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dob;
@@ -70,12 +71,12 @@ public class UserDto {
     public UserDto() {
     }
 
-    public @NotNull @Size(min = 1,
+    public @Size(min = 1,
                           max = 50) String getLogin() {
         return login;
     }
 
-    public void setLogin(@NotNull @Size(min = 1,
+    public void setLogin(@Size(min = 1,
                                         max = 50) String login) {
         this.login = login;
     }
@@ -132,11 +133,11 @@ public class UserDto {
         this.email = email;
     }
 
-    public @NotNull PhoneNumberDto getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(@NotNull PhoneNumberDto phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -172,6 +173,14 @@ public class UserDto {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public @Past LocalDate getDob() {

@@ -3,6 +3,7 @@ package com.softropic.promora.security.api;
 
 import com.softropic.promora.common.ClockProvider;
 import com.softropic.promora.common.dto.PhoneNumberDto;
+import com.softropic.promora.common.validation.CamMobileValidator;
 import com.softropic.promora.common.validation.PhoneNumber;
 import com.softropic.promora.email.api.EmailTemplate;
 import com.softropic.promora.email.api.Envelope;
@@ -133,7 +134,7 @@ public class AccountManagementFacade {
             strategy = emailStrategy;
         } else {
             userDTO.setLoginIdType(LoginIdType.PHONE);
-            userDTO.setLogin(userDTO.getPhone().getPhone());
+            userDTO.setLogin(userDTO.getPhone());
             strategy = smsStrategy;
         }
 
@@ -226,20 +227,23 @@ public class AccountManagementFacade {
         user.setTitle(userDTO.getTitle());
         user.setDateOfBirth(userDTO.getDob());
         user.setOtpEnabled(userDTO.isOtpEnabled());
+        user.setNationalId(userDTO.getNationalId());
         return user;
     }
 
-    protected PhoneNumber toPhoneNumber(PhoneNumberDto phoneNumberDTO) {
-        if ( phoneNumberDTO == null ) {
+    protected PhoneNumber toPhoneNumber(String phone) {
+        if (phone == null || phone.isBlank()) {
             return null;
         }
 
         PhoneNumber phoneNumber = new PhoneNumber();
+        //TODO elegantly extract the phone number building logic from CamMobileValidator to a dedicated class
+        final PhoneNumberDto phoneNoDto = CamMobileValidator.validate(phone);
 
-        phoneNumber.setPhone( phoneNumberDTO.getPhone() );
-        phoneNumber.setIso2Country( phoneNumberDTO.getIso2Country() );
-        phoneNumber.setPhoneType(PhoneNumber.PhoneType.valueOf(phoneNumberDTO.getPhoneType().name()));
-        phoneNumber.setProvider( phoneNumberDTO.getProvider() );
+        phoneNumber.setPhone(phoneNoDto.getPhone());
+        phoneNumber.setIso2Country(phoneNoDto.getIso2Country());
+        phoneNumber.setPhoneType(Objects.equals(phoneNoDto.getPhoneType(), PhoneNumberDto.PhoneType.MOBILE) ? PhoneNumber.PhoneType.MOBILE : PhoneNumber.PhoneType.FIXED);
+        phoneNumber.setProvider(phoneNoDto.getProvider());
 
         return phoneNumber;
     }

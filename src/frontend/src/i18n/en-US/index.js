@@ -15,6 +15,7 @@ export default {
     firstName: 'First Name',
     lastName: 'Last Name',
     phone: 'Phone Number',
+    nationalId: 'National ID',
     dateOfBirth: 'Date of Birth',
     gender: 'Gender',
     male: 'Male',

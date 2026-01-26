@@ -1,21 +1,19 @@
 package com.softropic.promora.common.validation;
 
-import com.softropic.promora.common.dto.PhoneNumberDto;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Bean Validation constraint validator for Cameroon mobile numbers.
- * Validates PhoneNumberDto using CamMobileValidator logic.
+ * Validates a phone number String using CamMobileValidator logic.
  *
  * This validator is used with the @CamPhone annotation and integrates
  * with Spring's validation framework to produce field-level errors
  * that are properly returned in the API response.
  */
 @Slf4j
-public class CamPhoneValidator implements ConstraintValidator<CamPhone, PhoneNumberDto> {
+public class CamPhoneValidator implements ConstraintValidator<CamPhone, String> {
 
     @Override
     public void initialize(CamPhone constraintAnnotation) {
@@ -23,16 +21,10 @@ public class CamPhoneValidator implements ConstraintValidator<CamPhone, PhoneNum
     }
 
     @Override
-    public boolean isValid(PhoneNumberDto phoneNumberDto, ConstraintValidatorContext context) {
-        // Null values should be handled by @NotNull annotation
-        if (phoneNumberDto == null) {
-            return true;
-        }
-
-        String phone = phoneNumberDto.getPhone();
+    public boolean isValid(String phone, ConstraintValidatorContext context) {
+        // Null or empty values are valid (use @NotNull/@NotBlank for required fields)
         if (phone == null || phone.isBlank()) {
-            addConstraintViolation(context, "validation.phone.blank", "Phone number cannot be blank");
-            return false;
+            return true;
         }
 
         try {

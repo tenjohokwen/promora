@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -182,8 +183,11 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
     private Integer getLoginCode(Map<String, String> credentials) {
         try {
             //This code looks a bit convoluted but it is to handle the case where the value login code is actually an integer. Somehow it is passed as an integer.
-            final Object code = credentials.get(SecurityConstants.LOGIN_CODE);
-            if(code instanceof Integer) return (Integer) code;
+            Object code = credentials.get(SecurityConstants.LOGIN_CODE);
+            code = Objects.isNull(code) ? 1 : code;
+            if(code instanceof Integer) {
+                return (Integer) code;
+            }
             return Integer.valueOf(code.toString());
         }
         catch (NumberFormatException e) {

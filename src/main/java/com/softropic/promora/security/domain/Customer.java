@@ -78,6 +78,8 @@ public class Customer extends AbstractAuditingEntity implements Consumer {
     @Size(max = 3)
     protected Set<Address> addresses = new HashSet<>();
 
+    protected String nationalId;
+
     public String getFirstName() {
         return firstName;
     }
@@ -162,19 +164,36 @@ public class Customer extends AbstractAuditingEntity implements Consumer {
         this.addresses.add(address);
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {return true;}
         if (!(o instanceof Customer customer)) {return false;}
-        if (!super.equals(o)) {return false;}
-        return Objects.equals(firstName, customer.firstName) && Objects.equals(lastName,
-                                                                               customer.lastName) && Objects.equals(
-                dateOfBirth,
-                customer.dateOfBirth);
+        // If both have nationalId, compare by nationalId (primary business key)
+        if (Objects.nonNull(this.nationalId) && Objects.nonNull(customer.nationalId)) {
+            return Objects.equals(this.nationalId, customer.nationalId);
+        }
+        // If neither has nationalId, compare by natural key: firstName + lastName + dateOfBirth
+        if (Objects.isNull(this.nationalId) && Objects.isNull(customer.nationalId)) {
+            return Objects.equals(firstName, customer.firstName)
+                    && Objects.equals(lastName, customer.lastName)
+                    && Objects.equals(dateOfBirth, customer.dateOfBirth);
+        }
+        // One has nationalId and the other doesn't - not equal
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, lastName, dateOfBirth);
+        // Use a constant hashCode for JPA entities to avoid issues when ID changes
+        // This ensures entities work correctly in HashSet/HashMap even when fields change
+        return getClass().hashCode();
     }
 }

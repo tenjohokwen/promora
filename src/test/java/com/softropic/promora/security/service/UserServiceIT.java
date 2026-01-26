@@ -2,7 +2,6 @@ package com.softropic.promora.security.service;
 
 import com.softropic.promora.common.ClockProvider;
 import com.softropic.promora.common.Gender;
-import com.softropic.promora.common.dto.PhoneNumberDto;
 import com.softropic.promora.common.persistence.EntityStatus;
 import com.softropic.promora.common.util.RandomUtil;
 import com.softropic.promora.common.validation.PhoneNumber;
@@ -228,7 +227,7 @@ class UserServiceIT {
         userDto.setLogin(email);
         userDto.setLoginIdType(LoginIdType.EMAIL);
         final PhoneNumber phoneNumber = generatePhone();
-        userDto.setPhone(new PhoneNumberDto(phoneNumber.getPhone(), phoneNumber.getProvider(), phoneNumber.getIso2Country()));
+        userDto.setPhone(phoneNumber.getPhone());
         userDto.setActivated(false);
         userDto.setLangKey("en");
         userDto.setGender(Gender.MALE);
@@ -237,6 +236,7 @@ class UserServiceIT {
         userDto.setOtpEnabled(true);
         userDto.setFirstName("Test");
         userDto.setLastName("User");
+        userDto.setNationalId("nationalIdQ");
         return userDto;
     }
 

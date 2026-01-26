@@ -15,6 +15,7 @@ export default {
     firstName: 'Prenom',
     lastName: 'Nom',
     phone: 'Numero de telephone',
+    nationalId: 'Numero CNI',
     dateOfBirth: 'Date de naissance',
     gender: 'Genre',
     male: 'Homme',

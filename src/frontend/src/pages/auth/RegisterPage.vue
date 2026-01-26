@@ -21,18 +21,7 @@
 
           <q-form @submit.prevent="handleRegister">
             <div class="row q-col-gutter-md">
-              <!-- Row 1: Login and Email -->
-              <div class="col-12 col-md-6">
-                <q-input
-                  v-model="form.login"
-                  :label="t('auth.login')"
-                  outlined
-                  lazy-rules
-                  :rules="[required, maxLen50]"
-                  :error="hasFieldError('login')"
-                  :error-message="getFieldError('login')"
-                />
-              </div>
+              <!-- Row 1: Email and National Id -->
               <div class="col-12 col-md-6">
                 <q-input
                   v-model="form.email"
@@ -43,6 +32,17 @@
                   :rules="[required, validEmail, minLen5, maxLen100]"
                   :error="hasFieldError('email')"
                   :error-message="getFieldError('email')"
+                />
+              </div>
+              <div class="col-12 col-md-6">
+                <q-input
+                  v-model="form.nationalId"
+                  :label="t('auth.nationalId')"
+                  outlined
+                  lazy-rules
+                  :rules="[optionalMinLen5, maxLen50]"
+                  :error="hasFieldError('nationalId')"
+                  :error-message="getFieldError('nationalId')"
                 />
               </div>
 
@@ -236,8 +236,8 @@ const {
 
 // Form state
 const form = ref({
-  login: '',
   email: '',
+  nationalId: '',
   password: '',
   confirmPassword: '',
   title: null,
@@ -280,7 +280,8 @@ const languageOptions = computed(() => [
 const required = (val) => !!val || t('validation.required');
 const validEmail = (val) => /.+@.+\..+/.test(val) || t('validation.email');
 const minLen5 = (val) => val.length >= 5 || t('validation.minLength', { min: 5 });
-const maxLen50 = (val) => val.length <= 50 || t('validation.maxLength', { max: 50 });
+const optionalMinLen5 = (val) => !val || val.length >= 5 || t('validation.minLength', { min: 5 });
+const maxLen50 = (val) => !val || val.length <= 50 || t('validation.maxLength', { max: 50 });
 const maxLen100 = (val) => val.length <= 100 || t('validation.maxLength', { max: 100 });
 const passwordMatch = (val) => val === form.value.password || t('validation.passwordMatch');
 const pastDate = (val) => !val || new Date(val) < new Date() || t('validation.pastDate');
@@ -293,7 +294,6 @@ async function handleRegister() {
   try {
     // Build userData, only including non-empty optional fields
     const userData = {
-      login: form.value.login,
       email: form.value.email,
       password: form.value.password,
       firstName: form.value.firstName,
@@ -302,6 +302,9 @@ async function handleRegister() {
     };
 
     // Add optional fields only if they have values
+    if (form.value.nationalId) {
+      userData.nationalId = form.value.nationalId;
+    }
     if (form.value.title != null && form.value.title !== '') {
       // Handle both string value and object (in case emit-value doesn't work)
       userData.title = typeof form.value.title === 'object' ? form.value.title.value : form.value.title;

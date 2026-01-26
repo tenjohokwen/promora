@@ -10,7 +10,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * Validates that a PhoneNumberDto contains a valid Cameroon mobile number.
+ * Validates that a String contains a valid Cameroon mobile number.
  * Uses CamMobileValidator for validation logic.
  *
  * Validation includes:

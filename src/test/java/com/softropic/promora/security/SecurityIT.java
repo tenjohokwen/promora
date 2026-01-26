@@ -6,7 +6,6 @@ import com.softropic.promora.common.ClockProvider;
 import com.softropic.promora.common.Gender;
 import com.softropic.promora.common.HttpTestClient;
 import com.softropic.promora.common.config.CommonConfig;
-import com.softropic.promora.common.dto.PhoneNumberDto;
 import com.softropic.promora.common.message.ErrorDto;
 import com.softropic.promora.common.message.ErrorMsg;
 import com.softropic.promora.common.message.FieldErrorDto;
@@ -856,7 +855,7 @@ class SecurityIT {
         userDto.setLogin("figu@yahoo.com");
         userDto.setLoginIdType(LoginIdType.EMAIL);
         final PhoneNumber phoneNumber = generatePhone();
-        userDto.setPhone(new PhoneNumberDto(phoneNumber.getPhone(), phoneNumber.getProvider(), phoneNumber.getIso2Country()));
+        userDto.setPhone(phoneNumber.getPhone());
         userDto.setActivated(false);
         userDto.setLangKey("en");
         userDto.setGender(Gender.MALE);

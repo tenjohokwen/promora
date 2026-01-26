@@ -56,6 +56,7 @@ public class UserRegistrationService {
         newUser.setDateOfBirth(user.getDateOfBirth());
         newUser.setGender(user.getGender());
         newUser.setPhone(user.getPhone());
+        newUser.setNationalId(user.getNationalId());
         newUser.setOtpEnabled(user.isOtpEnabled());
 
         // new user is not active

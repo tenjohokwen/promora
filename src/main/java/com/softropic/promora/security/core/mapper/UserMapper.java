@@ -2,6 +2,9 @@ package com.softropic.promora.security.core.mapper;
 
 
 
+import com.softropic.promora.common.dto.PhoneNumberDto;
+import com.softropic.promora.common.validation.CamMobileValidator;
+import com.softropic.promora.common.validation.PhoneNumber;
 import com.softropic.promora.security.exposed.UserDto;
 import com.softropic.promora.security.domain.Authority;
 import com.softropic.promora.security.domain.User;
@@ -11,6 +14,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -50,5 +54,30 @@ public interface UserMapper {
      */
     default Set<Authority> toAuth(Set<String> auths) {
         return auths.stream().map(Authority::new).collect(Collectors.toSet());
+    }
+
+    /**
+     * Maps PhoneNumber entity to String (for toUserDto).
+     */
+    default String phoneNumberToString(PhoneNumber phoneNumber) {
+        return phoneNumber != null ? phoneNumber.getPhone() : null;
+    }
+
+    /**
+     * Maps String to PhoneNumber entity (for toUser).
+     * Uses CamMobileValidator to enrich with provider and country code.
+     */
+    default PhoneNumber stringToPhoneNumber(String phone) {
+        if (phone == null || phone.isBlank()) {
+            return null;
+        }
+        PhoneNumber phoneNumber = new PhoneNumber();
+        PhoneNumberDto phoneNoDto = CamMobileValidator.validate(phone);
+        phoneNumber.setPhone(phoneNoDto.getPhone());
+        phoneNumber.setIso2Country(phoneNoDto.getIso2Country());
+        phoneNumber.setPhoneType(Objects.equals(phoneNoDto.getPhoneType(), PhoneNumberDto.PhoneType.MOBILE)
+                ? PhoneNumber.PhoneType.MOBILE : PhoneNumber.PhoneType.FIXED);
+        phoneNumber.setProvider(phoneNoDto.getProvider());
+        return phoneNumber;
     }
 }

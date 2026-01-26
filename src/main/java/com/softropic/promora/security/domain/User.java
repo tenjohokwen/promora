@@ -10,6 +10,7 @@ import org.hibernate.envers.Audited;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -309,18 +310,18 @@ public class User extends Customer implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (!(obj instanceof User user)) {
             return false;
         }
-
-        final User user = (User) obj;
-
-        return login.equals(user.login);
+        // Use login as business key for User identity (null-safe comparison)
+        return Objects.equals(login, user.login);
     }
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        // Use a constant hashCode for JPA entities to avoid issues when fields change
+        // This ensures entities work correctly in HashSet/HashMap
+        return getClass().hashCode();
     }
 
     @Override

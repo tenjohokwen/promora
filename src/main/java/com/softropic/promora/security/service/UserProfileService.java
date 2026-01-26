@@ -1,5 +1,6 @@
 package com.softropic.promora.security.service;
 
+import com.softropic.promora.common.Gender;
 import com.softropic.promora.security.common.util.SecurityConstants;
 import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.domain.User;
@@ -41,11 +42,14 @@ public class UserProfileService {
      * @return the updated user if found, empty otherwise
      */
     @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
-    public Optional<User> updateUserInformation(String firstname, String lastname, final String langKey) {
+    public Optional<User> updateUserInformation(String firstname, String lastname, String langKey, String nationalId, Gender gender, String title) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername()).map(u -> {
             u.setFirstName(firstname);
             u.setLastName(lastname);
             u.setLangKey(langKey);
+            u.setNationalId(nationalId);
+            u.setGender(gender);
+            u.setTitle(title);
             log.debug("Changed Information for User: {}", u);
             return u;
         });
@@ -81,6 +85,7 @@ public class UserProfileService {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername()).map(u -> {
             if (passwordEncoder.matches(password, u.getPassword()) && StringUtils.equals(oldEmail, u.getEmail())) {
                 u.setEmail(newEmail);
+                u.setLogin(newEmail); //best pracs recommend this change
                 log.debug("Changed email for User: {}", u);
                 return u;
             }
