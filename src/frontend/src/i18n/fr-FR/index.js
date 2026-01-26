@@ -56,7 +56,14 @@ export default {
     invalidDate: 'Veuillez entrer une date valide',
     pastDate: 'La date doit etre dans le passe',
     badRequest: "La requete n'est pas valide. Verifiez les arguments de methode, les parametres manquants, etc.",
-    invalidData: 'Donnees invalides'
+    invalidData: 'Donnees invalides',
+    phone: {
+      invalid: 'Format de numero de telephone invalide',
+      blank: 'Le numero de telephone ne peut pas etre vide',
+      digitCount: 'Le numero de telephone doit contenir exactement 9 chiffres',
+      firstDigit: 'Le numero de telephone doit commencer par le chiffre 6',
+      operator: "Le numero de telephone ne correspond a aucun operateur valide (MTN, Orange, NextTel)"
+    }
   },
   error: {
     generic: 'Une erreur inattendue est survenue. Veuillez reessayer.',

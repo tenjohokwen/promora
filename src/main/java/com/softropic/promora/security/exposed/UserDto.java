@@ -3,6 +3,7 @@ package com.softropic.promora.security.exposed;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.softropic.promora.common.Gender;
 import com.softropic.promora.common.dto.PhoneNumberDto;
+import com.softropic.promora.common.validation.CamPhone;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -47,6 +48,7 @@ public class UserDto {
     private String email;
 
     @NotNull
+    @CamPhone
     private PhoneNumberDto phone;
 
     private boolean activated = false;

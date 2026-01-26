@@ -11,6 +11,7 @@ import { parseApiError } from 'src/utils/errorHandler';
  *   error: import('vue').Ref,
  *   fieldErrors: import('vue').ComputedRef<Object>,
  *   hasError: import('vue').ComputedRef<boolean>,
+ *   hasFieldErrors: import('vue').ComputedRef<boolean>,
  *   errorMessage: import('vue').ComputedRef<string|null>,
  *   errorKey: import('vue').ComputedRef<string|null>,
  *   helpCode: import('vue').ComputedRef<string|null>,
@@ -33,6 +34,7 @@ export function useErrorHandler() {
   const errorKey = computed(() => error.value?.errorKey || null);
   const helpCode = computed(() => error.value?.helpCode || null);
   const isValidationError = computed(() => error.value?.isValidationError || false);
+  const hasFieldErrors = computed(() => Object.keys(fieldErrors.value).length > 0);
 
   // Translated error message - uses errorKey for translation, falls back to raw message
   const errorMessage = computed(() => {
@@ -83,6 +85,7 @@ export function useErrorHandler() {
     error: readonly(error),
     fieldErrors,
     hasError,
+    hasFieldErrors,
     errorMessage,
     errorKey,
     helpCode,

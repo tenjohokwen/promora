@@ -318,6 +318,7 @@ const SESSION_TTL = 15 * 60 * 1000;              // 15 minutes
   error,            // readonly ref - full error object
   fieldErrors,      // readonly ref - { fieldName: message }
   hasError,         // computed - boolean
+  hasFieldErrors,   // computed - true if any field-specific errors exist
   errorMessage,     // computed - main error message
   errorKey,         // computed - error key for i18n
   helpCode,         // computed - support help code
@@ -514,11 +515,11 @@ All pages MUST use a consistent error display pattern to ensure uniform user exp
 
 #### Standard Error Banner Component
 
-Use this exact pattern for displaying non-validation errors at the top of forms or page content:
+Use this exact pattern for displaying errors at the top of forms or page content:
 
 ```vue
 <q-banner
-  v-if="hasError && !isValidationError"
+  v-if="hasError && (!isValidationError || !hasFieldErrors)"
   class="bg-negative text-white q-mb-md"
   rounded
 >
@@ -534,7 +535,7 @@ Use this exact pattern for displaying non-validation errors at the top of forms 
 
 | Attribute | Purpose |
 |-----------|---------|
-| `v-if="hasError && !isValidationError"` | Only show for non-field errors (API errors, server errors). Field errors are displayed inline on form inputs. |
+| `v-if="hasError && (!isValidationError || !hasFieldErrors)"` | Show for non-validation errors OR validation errors without field-specific details. This ensures users always see an error message even when the server returns a validation error without field mappings. |
 | `class="bg-negative text-white"` | Quasar's negative color (red by default) with white text for high visibility |
 | `class="q-mb-md"` | Consistent margin-bottom spacing before form content |
 | `rounded` | Rounded corners matching Quasar's design language |
@@ -557,6 +558,7 @@ const {
   setError,
   clearError,
   hasError,
+  hasFieldErrors,
   errorMessage,
   errorKey,
   helpCode,
@@ -580,7 +582,7 @@ Place the error banner immediately before your form or main content area:
 
         <!-- ERROR BANNER - Place before form -->
         <q-banner
-          v-if="hasError && !isValidationError"
+          v-if="hasError && (!isValidationError || !hasFieldErrors)"
           class="bg-negative text-white q-mb-md"
           rounded
         >
@@ -660,7 +662,8 @@ For forms with multiple fields, use `hasFieldError()` and `getFieldError()` to d
 
 | Error Type | Display Method | Condition |
 |------------|----------------|-----------|
-| API/Server errors (401, 403, 500) | Error banner at top | `hasError && !isValidationError` |
+| API/Server errors (401, 403, 500) | Error banner at top | `hasError && (!isValidationError || !hasFieldErrors)` |
+| Validation errors without field details | Error banner at top | `hasError && (!isValidationError || !hasFieldErrors)` |
 | Field validation errors | Inline on each field | `hasFieldError('fieldName')` |
 | Client-side validation | Inline via `:rules` | Form validation before submit |
 
@@ -675,7 +678,7 @@ For forms with multiple fields, use `hasFieldError()` and `getFieldError()` to d
 
         <!-- General error banner -->
         <q-banner
-          v-if="hasError && !isValidationError"
+          v-if="hasError && (!isValidationError || !hasFieldErrors)"
           class="bg-negative text-white q-mb-md"
           rounded
         >
@@ -746,6 +749,7 @@ const {
   setError,
   clearError,
   hasError,
+  hasFieldErrors,
   errorMessage,
   helpCode,
   isValidationError,
@@ -886,6 +890,7 @@ export function useErrorHandler() {
   error,            // readonly ref - full error object
   fieldErrors,      // computed - { fieldName: message }
   hasError,         // computed - boolean
+  hasFieldErrors,   // computed - true if any field-specific errors exist
   errorMessage,     // computed - TRANSLATED error message (or fallback)
   errorKey,         // computed - raw error key for custom handling
   helpCode,         // computed - support help code
@@ -903,7 +908,7 @@ Components use `errorMessage` which automatically displays translated text:
 
 ```vue
 <template>
-  <q-banner v-if="hasError && !isValidationError" class="bg-negative text-white">
+  <q-banner v-if="hasError && (!isValidationError || !hasFieldErrors)" class="bg-negative text-white">
     {{ errorMessage }}  <!-- Automatically translated -->
     <template v-if="helpCode">
       <br />
@@ -919,6 +924,7 @@ const {
   setError,
   clearError,
   hasError,
+  hasFieldErrors,   // True if any field-specific errors exist
   errorMessage,     // Translated message
   isValidationError,
   helpCode,

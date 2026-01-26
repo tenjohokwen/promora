@@ -8,7 +8,7 @@
 
         <q-card-section>
           <q-banner
-            v-if="hasError && !isValidationError"
+            v-if="hasError && (!isValidationError || !hasFieldErrors)"
             class="q-mb-md bg-negative text-white"
             rounded
           >
@@ -226,6 +226,7 @@ const {
   setError,
   clearError,
   hasError,
+  hasFieldErrors,
   errorMessage,
   isValidationError,
   helpCode,

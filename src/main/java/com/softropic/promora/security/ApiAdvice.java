@@ -295,17 +295,32 @@ public class ApiAdvice {
 
         fieldErrors = deduplicate(fieldErrors);
         String message;
-        String fieldErrorCode;
+        String errorKey;
+        String fallbackMessage;
         String field;
-        final String keyPrefix = "invalid.";
+        final String defaultKeyPrefix = "invalid.";
         for (final FieldError fieldError : fieldErrors) {
-            fieldErrorCode = fieldError.getCode();
-            message = messageSource.getMessage("validation." + fieldErrorCode,
-                                               null,
-                                               fieldError.getDefaultMessage(),
-                                               Locale.forLanguageTag(chosenLang));
             field = fieldError.getField();
-            dto.add(fieldError.getObjectName(), field, new ErrorMsg(keyPrefix + field, message));
+            String defaultMsg = fieldError.getDefaultMessage();
+
+            // Check if defaultMessage contains our custom format: "errorKey|fallbackMessage"
+            if (defaultMsg != null && defaultMsg.contains("|")) {
+                String[] parts = defaultMsg.split("\\|", 2);
+                errorKey = parts[0];
+                fallbackMessage = parts.length > 1 ? parts[1] : defaultMsg;
+            } else {
+                // Standard validation: use "invalid.fieldName" as key
+                errorKey = defaultKeyPrefix + field;
+                fallbackMessage = defaultMsg;
+            }
+
+            // Look up translated message using the errorKey
+            message = messageSource.getMessage(errorKey,
+                                               null,
+                                               fallbackMessage,
+                                               Locale.forLanguageTag(chosenLang));
+
+            dto.add(fieldError.getObjectName(), field, new ErrorMsg(errorKey, message));
         }
         return dto;
     }

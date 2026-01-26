@@ -56,7 +56,14 @@ export default {
     invalidDate: 'Please enter a valid date',
     pastDate: 'Date must be in the past',
     badRequest: 'The request is not valid. Check method argument mismatch, missing parameters e.t.c.',
-    invalidData: 'Invalid Data'
+    invalidData: 'Invalid Data',
+    phone: {
+      invalid: 'Invalid phone number format',
+      blank: 'Phone number cannot be blank',
+      digitCount: 'Phone number must have exactly 9 digits',
+      firstDigit: 'Phone number must start with digit 6',
+      operator: 'Phone number does not match any valid operator (MTN, Orange, NextTel)'
+    }
   },
   error: {
     generic: 'An unexpected error occurred. Please try again.',

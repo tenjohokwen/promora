@@ -115,8 +115,13 @@ public class PhoneNumberDto implements Serializable {
 
     /**
      * Custom Jackson JsonDeserializer for PhoneNumber.
-     * Deserializes a string into a PhoneNumber object using CamMobileValidator.
-     * Example: "677123456" -> PhoneNumber("677123456", Provider.MTN, "CM")
+     * Deserializes a string into a PhoneNumber object.
+     *
+     * Note: This deserializer does NOT perform validation. Validation is handled
+     * by the @CamPhone Bean Validation annotation on the DTO field, which allows
+     * validation errors to be properly returned as field-level errors in the API response.
+     *
+     * Example: "677123456" -> PhoneNumber("677123456", null, "CM")
      */
     public static class PhoneNumberDeserializer extends JsonDeserializer<PhoneNumberDto> {
         @Override
@@ -124,19 +129,15 @@ public class PhoneNumberDto implements Serializable {
             String phoneString = p.getValueAsString(); // Get the JSON string value
 
             if (phoneString == null) {
-                // Handle null input gracefully, perhaps by returning null or throwing an error
                 return null;
             }
 
-            try {
-                // Use the CamMobileValidator to validate and construct the PhoneNumber object
-                return CamMobileValidator.validate(phoneString);
-            } catch (CamMobileValidator.InvalidMobileNumberException e) {
-                // If validation fails, wrap the custom exception in a Jackson JsonMappingException
-                // so Jackson can report it properly.
-                throw ctxt.weirdStringException(phoneString, PhoneNumberDto.class,
-                                                "Invalid Cameroon mobile number: " + e.getMessage());
-            }
+            // Create a basic PhoneNumberDto with the raw phone string
+            // Validation and provider identification will be done by @CamPhone validator
+            PhoneNumberDto dto = new PhoneNumberDto();
+            dto.setPhone(phoneString.replaceAll("\\s+", "")); // Remove whitespace
+            dto.setIso2Country("CM"); // Default to Cameroon
+            return dto;
         }
     }
 
