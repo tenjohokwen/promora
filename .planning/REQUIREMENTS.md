@@ -23,13 +23,13 @@ Requirements for user profile milestone. Each maps to roadmap phases.
 
 ### Backend API (API)
 
-- [ ] **API-04**: GET /api/account/profile endpoint returns user profile data
-- [ ] **API-05**: PUT /api/account/email endpoint updates email with verification
-- [ ] **API-06**: PUT /api/account/password endpoint updates password
-- [ ] **API-07**: PUT /api/account/phone endpoint updates phone number
-- [ ] **API-08**: PUT /api/account/address endpoint updates address
-- [ ] **API-09**: PUT /api/account/info endpoint updates core user info
-- [ ] **API-10**: PUT /api/account/2fa endpoint toggles two-factor authentication
+- [x] **API-04**: GET /api/account/profile endpoint returns user profile data
+- [x] **API-05**: PUT /api/account/email endpoint updates email with verification
+- [x] **API-06**: PUT /api/account/password endpoint updates password
+- [x] **API-07**: PUT /api/account/phone endpoint updates phone number
+- [x] **API-08**: PUT /api/account/address endpoint updates address
+- [x] **API-09**: PUT /api/account/info endpoint updates core user info
+- [x] **API-10**: PUT /api/account/2fa endpoint toggles two-factor authentication
 
 ### Notifications (NOTF)
 
@@ -87,13 +87,13 @@ Which phases cover which requirements. Updated by create-roadmap.
 | UPDT-04 | Phase 11 | Pending |
 | UPDT-05 | Phase 11 | Pending |
 | UPDT-06 | Phase 11 | Pending |
-| API-04 | Phase 9 | Pending |
-| API-05 | Phase 9 | Pending |
-| API-06 | Phase 9 | Pending |
-| API-07 | Phase 9 | Pending |
-| API-08 | Phase 9 | Pending |
-| API-09 | Phase 9 | Pending |
-| API-10 | Phase 9 | Pending |
+| API-04 | Phase 9 | Complete |
+| API-05 | Phase 9 | Complete |
+| API-06 | Phase 9 | Complete |
+| API-07 | Phase 9 | Complete |
+| API-08 | Phase 9 | Complete |
+| API-09 | Phase 9 | Complete |
+| API-10 | Phase 9 | Complete |
 | NOTF-01 | Phase 10 | Pending |
 | NOTF-02 | Phase 10 | Pending |
 | NOTF-03 | Phase 10 | Pending |
