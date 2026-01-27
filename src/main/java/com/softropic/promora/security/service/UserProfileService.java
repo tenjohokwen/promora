@@ -4,6 +4,8 @@ import com.softropic.promora.common.Gender;
 import com.softropic.promora.common.dto.PhoneNumberDto;
 import com.softropic.promora.common.validation.CamMobileValidator;
 import com.softropic.promora.common.validation.PhoneNumber;
+import com.softropic.promora.email.api.Recipient;
+import com.softropic.promora.security.audit.shared.event.AccountChangeEvent;
 import com.softropic.promora.security.common.util.SecurityConstants;
 import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.domain.User;
@@ -15,6 +17,7 @@ import com.softropic.promora.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,7 @@ public class UserProfileService {
     private final UserRepository userRepository;
     private final SecurityUtil securityUtil;
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationEventPublisher publisher;
 
     /**
      * Updates the current user's basic information (name and language preference).
@@ -70,6 +74,17 @@ public class UserProfileService {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
                 .map(u -> {
                     u.addOrReplaceAddress(address);
+
+                    // Publish event for notification and audit
+                    Recipient recipient = buildRecipient(u);
+                    AccountChangeEvent event = new AccountChangeEvent(
+                            AccountChangeEvent.Action.ADDRESS_CHANGED,
+                            null,
+                            null,
+                            recipient
+                    );
+                    publisher.publishEvent(event);
+
                     return u;
                 });
     }
@@ -88,9 +103,22 @@ public class UserProfileService {
     public Optional<User> updateUserEmail(String oldEmail, final String newEmail, String password) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername()).map(u -> {
             if (passwordEncoder.matches(password, u.getPassword()) && StringUtils.equals(oldEmail, u.getEmail())) {
+                String capturedOldEmail = u.getEmail();
                 u.setEmail(newEmail);
                 u.setLogin(newEmail); //best pracs recommend this change
                 log.debug("Changed email for User: {}", u);
+
+                // Publish event for notification and audit (send to old email address)
+                Recipient recipient = buildRecipient(u);
+                recipient.setEmail(capturedOldEmail);  // Override to send notification to OLD email for security
+                AccountChangeEvent event = new AccountChangeEvent(
+                        AccountChangeEvent.Action.EMAIL_CHANGED,
+                        capturedOldEmail,
+                        newEmail,
+                        recipient
+                );
+                publisher.publishEvent(event);
+
                 return u;
             }
             final Map<String, Object> ctx = Map.of("oldEmail", oldEmail,
@@ -121,6 +149,17 @@ public class UserProfileService {
                     }
                     user.setPassword(passwordEncoder.encode(newPassword));
                     log.debug("Changed password for User: {}", user.getLogin());
+
+                    // Publish event for notification and audit
+                    Recipient recipient = buildRecipient(user);
+                    AccountChangeEvent event = new AccountChangeEvent(
+                            AccountChangeEvent.Action.PASSWORD_CHANGED,
+                            null,  // oldValue not applicable for password
+                            null,  // newValue not applicable for password
+                            recipient
+                    );
+                    publisher.publishEvent(event);
+
                     return user;
                 });
     }
@@ -162,6 +201,20 @@ public class UserProfileService {
                     }
                     user.setOtpEnabled(enabled);
                     log.debug("Changed 2FA status for User: {} to {}", user.getLogin(), enabled);
+
+                    // Publish event for notification and audit
+                    Recipient recipient = buildRecipient(user);
+                    AccountChangeEvent.Action action = enabled
+                            ? AccountChangeEvent.Action.TWO_FACTOR_AUTH_ENABLED
+                            : AccountChangeEvent.Action.TWO_FACTOR_AUTH_DISABLED;
+                    AccountChangeEvent event = new AccountChangeEvent(
+                            action,
+                            String.valueOf(!enabled),  // oldValue: previous state
+                            String.valueOf(enabled),   // newValue: new state
+                            recipient
+                    );
+                    publisher.publishEvent(event);
+
                     return user;
                 });
     }
@@ -187,5 +240,22 @@ public class UserProfileService {
         phoneNumber.setProvider(phoneNoDto.getProvider());
 
         return phoneNumber;
+    }
+
+    /**
+     * Builds a Recipient object from a User entity for email notifications.
+     *
+     * @param user the user entity
+     * @return the populated Recipient
+     */
+    private Recipient buildRecipient(User user) {
+        Recipient recipient = new Recipient();
+        recipient.setFirstname(user.getFirstName());
+        recipient.setLastname(user.getLastName());
+        recipient.setEmail(user.getEmail());
+        recipient.setLangKey(user.getLangKey());
+        recipient.setTitle(user.getTitle());
+        recipient.setGender(user.getGender() != null ? user.getGender().name() : null);
+        return recipient;
     }
 }
