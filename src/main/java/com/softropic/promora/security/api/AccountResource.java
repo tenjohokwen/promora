@@ -6,10 +6,17 @@ package com.softropic.promora.security.api;
 import com.softropic.promora.common.message.Failure;
 import com.softropic.promora.common.message.Response;
 import com.softropic.promora.common.message.Success;
+import com.softropic.promora.security.api.dto.AddressDto;
+import com.softropic.promora.security.api.dto.ChangePasswordRequestDto;
+import com.softropic.promora.security.api.dto.ChangePhoneDto;
+import com.softropic.promora.security.api.dto.Toggle2faDto;
+import com.softropic.promora.security.api.dto.UpdateUserInfoDto;
+import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.exposed.ChangePasswordDto;
 import com.softropic.promora.security.exposed.UserDto;
 import com.softropic.promora.security.exposed.exception.AuthorizationException;
 import com.softropic.promora.security.exposed.exception.SecurityError;
+import com.softropic.promora.security.service.UserProfileService;
 import com.softropic.promora.security.service.UserService;
 import com.softropic.promora.security.service.UserRegistrationService;
 import com.softropic.promora.security.core.mapper.UserMapper;
@@ -23,6 +30,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,6 +66,9 @@ public class AccountResource {
 
     @Autowired
     private AccountManagementFacade accountManagementFacade;
+
+    @Autowired
+    private UserProfileService userProfileService;
 
     /**
      * POST  /register to register the user.
@@ -166,6 +177,54 @@ public class AccountResource {
     @Timed
     public Map<String, String> pong() {
         return Map.of("server", "up");
+    }
+
+    // =========================================================================
+    // Profile Management Endpoints (/api/account/*)
+    // =========================================================================
+
+    /**
+     * GET /api/account/profile to get the current user's profile.
+     * @return user profile data
+     */
+    @GetMapping(value = "/api/account/profile", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<UserDto> getProfile() {
+        return Optional.ofNullable(userService.getUserWithAuthorities())
+            .map(user -> new ResponseEntity<>(userMapper.toUserDto(user), HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * PUT /api/account/email to update the current user's email.
+     * Sends verification email to the new address.
+     * @param changeEmailDto contains old email, new email, and password for verification
+     * @return success or failure response
+     */
+    @PutMapping(value = "/api/account/email", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Response updateEmail(@Valid @RequestBody ChangeEmailDto changeEmailDto) {
+        final String code = accountManagementFacade.changeEmail(
+            changeEmailDto.getOldEmail(),
+            changeEmailDto.getNewEmail(),
+            changeEmailDto.getPassword());
+        if (StringUtils.isNotBlank(code)) {
+            return new Success(code, "email.updated", "Your email address has been updated", Map.of());
+        }
+        return new Failure(UUID.randomUUID().toString(), "email.change.failure", "Your email cannot be changed");
+    }
+
+    /**
+     * PUT /api/account/password to change the current user's password.
+     * @param dto contains current password and new password
+     * @return success response
+     */
+    @PutMapping(value = "/api/account/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Success updatePassword(@Valid @RequestBody ChangePasswordRequestDto dto) {
+        userProfileService.changePassword(dto.getCurrentPassword(), dto.getNewPassword())
+            .orElseThrow(() -> new AuthorizationException("User not found", SecurityError.USER_NOT_FOUND));
+        return new Success(null, "password.changed", "Your password has been changed", Map.of());
     }
 
 }
