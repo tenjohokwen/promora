@@ -36,7 +36,7 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
 **Milestone Goal:** Enable authenticated users to view and manage their profile information with security notifications and audit trails.
 
 - [x] **Phase 9: Backend Profile API** — Profile management API endpoints
-- [ ] **Phase 10: Notifications & Audit** — Email notifications and audit trail
+- [x] **Phase 10: Notifications & Audit** — Email notifications and audit trail
 - [ ] **Phase 11: Frontend Profile Page** — Profile display and update dialogs
 - [ ] **Phase 12: Menu Integration** — Profile navigation and routing
 
@@ -69,7 +69,8 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
   4. Email template supports English and French
   5. All profile changes recorded in audit trail via TrailService
 **Research**: Unlikely — uses existing AccountChangeEvent and TrailService patterns
-**Plans**: TBD
+**Plans**: 2 (10-01 through 10-02)
+**Completed**: 2026-01-27
 
 ### Phase 11: Frontend Profile Page
 **Goal**: Create profile page with display and independent update dialogs
@@ -105,7 +106,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 9. Backend Profile API | 4/4 | ✓ Complete | 2026-01-27 |
-| 10. Notifications & Audit | 0/TBD | Not started | — |
+| 10. Notifications & Audit | 2/2 | ✓ Complete | 2026-01-27 |
 | 11. Frontend Profile Page | 0/TBD | Not started | — |
 | 12. Menu Integration | 0/TBD | Not started | — |
 

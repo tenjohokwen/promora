@@ -33,20 +33,20 @@ Requirements for user profile milestone. Each maps to roadmap phases.
 
 ### Notifications (NOTF)
 
-- [ ] **NOTF-01**: AccountChangeEvent listener processes profile change events
-- [ ] **NOTF-02**: Email notification sent for all profile changes
-- [ ] **NOTF-03**: Generic Thymeleaf email template for profile change notifications
+- [x] **NOTF-01**: AccountChangeEvent listener processes profile change events
+- [x] **NOTF-02**: Email notification sent for all profile changes
+- [x] **NOTF-03**: Generic Thymeleaf email template for profile change notifications
 
 ### Audit (AUDT)
 
-- [ ] **AUDT-01**: All profile changes recorded in audit trail via TrailService
+- [x] **AUDT-01**: All profile changes recorded in audit trail via TrailService
 
 ### Internationalization (I18N)
 
 - [ ] **I18N-04**: English (en-US) translations for profile page and update dialogs
 - [ ] **I18N-05**: French (fr-FR) translations for profile page and update dialogs
-- [ ] **I18N-06**: English (en-US) translations for profile change email template
-- [ ] **I18N-07**: French (fr-FR) translations for profile change email template
+- [x] **I18N-06**: English (en-US) translations for profile change email template
+- [x] **I18N-07**: French (fr-FR) translations for profile change email template
 
 ## v2 Requirements
 
@@ -94,14 +94,14 @@ Which phases cover which requirements. Updated by create-roadmap.
 | API-08 | Phase 9 | Complete |
 | API-09 | Phase 9 | Complete |
 | API-10 | Phase 9 | Complete |
-| NOTF-01 | Phase 10 | Pending |
-| NOTF-02 | Phase 10 | Pending |
-| NOTF-03 | Phase 10 | Pending |
-| AUDT-01 | Phase 10 | Pending |
+| NOTF-01 | Phase 10 | Complete |
+| NOTF-02 | Phase 10 | Complete |
+| NOTF-03 | Phase 10 | Complete |
+| AUDT-01 | Phase 10 | Complete |
 | I18N-04 | Phase 11 | Pending |
 | I18N-05 | Phase 11 | Pending |
-| I18N-06 | Phase 10 | Pending |
-| I18N-07 | Phase 10 | Pending |
+| I18N-06 | Phase 10 | Complete |
+| I18N-07 | Phase 10 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 23 total
