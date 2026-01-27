@@ -1,6 +1,9 @@
 package com.softropic.promora.security.service;
 
 import com.softropic.promora.common.Gender;
+import com.softropic.promora.common.dto.PhoneNumberDto;
+import com.softropic.promora.common.validation.CamMobileValidator;
+import com.softropic.promora.common.validation.PhoneNumber;
 import com.softropic.promora.security.common.util.SecurityConstants;
 import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.domain.User;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -95,5 +99,69 @@ public class UserProfileService {
                     "emailMatch", StringUtils.equals(oldEmail, u.getEmail()));
             throw new SecException("Cannot update email address", ctx, SecurityError.EMAIL_OR_PW_MISMATCH);
         });
+    }
+
+    /**
+     * Changes the current user's password.
+     * Requires the current password for verification.
+     *
+     * @param currentPassword the current password
+     * @param newPassword the new password
+     * @return the updated user if successful
+     * @throws SecException if current password doesn't match
+     */
+    @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
+    public Optional<User> changePassword(String currentPassword, String newPassword) {
+        return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
+                .map(user -> {
+                    if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+                        throw new SecException("Current password does not match",
+                                Map.of("login", user.getLogin()),
+                                SecurityError.EMAIL_OR_PW_MISMATCH);
+                    }
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    log.debug("Changed password for User: {}", user.getLogin());
+                    return user;
+                });
+    }
+
+    /**
+     * Updates the current user's phone number.
+     *
+     * @param phone the new phone number string
+     * @return the updated user if found
+     */
+    @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
+    public Optional<User> updatePhone(String phone) {
+        return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
+                .map(user -> {
+                    PhoneNumber phoneNumber = toPhoneNumber(phone);
+                    user.setPhone(phoneNumber);
+                    log.debug("Changed phone for User: {}", user.getLogin());
+                    return user;
+                });
+    }
+
+    /**
+     * Converts a phone string to a PhoneNumber entity using CamMobileValidator.
+     *
+     * @param phone the phone string
+     * @return the PhoneNumber entity, or null if phone is blank
+     */
+    private PhoneNumber toPhoneNumber(String phone) {
+        if (phone == null || phone.isBlank()) {
+            return null;
+        }
+
+        PhoneNumber phoneNumber = new PhoneNumber();
+        final PhoneNumberDto phoneNoDto = CamMobileValidator.validate(phone);
+
+        phoneNumber.setPhone(phoneNoDto.getPhone());
+        phoneNumber.setIso2Country(phoneNoDto.getIso2Country());
+        phoneNumber.setPhoneType(Objects.equals(phoneNoDto.getPhoneType(), PhoneNumberDto.PhoneType.MOBILE)
+                ? PhoneNumber.PhoneType.MOBILE : PhoneNumber.PhoneType.FIXED);
+        phoneNumber.setProvider(phoneNoDto.getProvider());
+
+        return phoneNumber;
     }
 }
