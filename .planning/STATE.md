@@ -4,40 +4,43 @@
 
 See: .planning/PROJECT.md (updated 2026-01-27)
 
-**Core value:** Secure, user-friendly account management with security notifications
-**Current focus:** v1.1 User Profile
+**Core value:** Secure, user-friendly account management with proper security notifications
+**Current focus:** Phase 9 — Backend Profile API
 
 ## Current Position
 
-Phase: Not started (run /gsd:define-requirements then /gsd:create-roadmap)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-01-27 — Milestone v1.1 started
+Phase: 9 of 12 (Backend Profile API)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-27 — Roadmap created for v1.1
 
-## Milestone v1.1 Target
+Progress: ░░░░░░░░░░ 0%
 
-**Goal:** User profile management with security notifications and audit trails
+## Performance Metrics
 
-**Features:**
-- Profile page with user info display
-- 6 independent update actions (email, password, phone, address, core info, 2FA)
-- Backend API endpoints
-- AccountChangeEvent listener + email notifications
-- Security audit trail
+**Velocity:**
+- Total plans completed: 0 (v1.1)
+- Average duration: —
+- Total execution time: 0 hours
 
-**Estimated phases:** 4 (Phases 9-12)
+**By Phase:**
+
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| — | — | — | — |
+
+**Recent Trend:**
+- Last 5 plans: —
+- Trend: —
 
 ## Accumulated Context
 
-### Key Decisions (from v1)
+### Decisions
 
-| Decision | Rationale |
-|----------|-----------|
-| Empty baseURL for axios | Backend uses relative paths with dev proxy |
-| Auto-redirect on 401 | Redirect to /login?expired=true on session expiry |
-| legacy: false for i18n | Enable useI18n() composable in Composition API |
-| 30-second check interval | Balance responsiveness and performance |
-| Cookie check for auth state | document.cookie.includes('user=') for route guard |
+Decisions are logged in PROJECT.md Key Decisions table.
+Recent decisions affecting current work:
+
+- Single address per user (simplifies v1.1, multiple addresses deferred)
 
 ### Pending Todos
 
@@ -47,12 +50,12 @@ None — fresh milestone.
 
 None.
 
-## Next Steps
+## Session Continuity
 
-1. `/gsd:define-requirements` — Specify what "done" looks like
-2. `/gsd:create-roadmap` — Break down into phases
-3. `/gsd:plan-phase 9` — Plan first phase
+Last session: 2026-01-27
+Stopped at: Roadmap created, ready to plan Phase 9
+Resume file: None
 
 ---
 
-*v1.1 started: 2026-01-27*
+*v1.1 roadmap created: 2026-01-27*

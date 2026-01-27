@@ -79,34 +79,34 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PROF-01 | TBD | Pending |
-| PROF-02 | TBD | Pending |
-| UPDT-01 | TBD | Pending |
-| UPDT-02 | TBD | Pending |
-| UPDT-03 | TBD | Pending |
-| UPDT-04 | TBD | Pending |
-| UPDT-05 | TBD | Pending |
-| UPDT-06 | TBD | Pending |
-| API-04 | TBD | Pending |
-| API-05 | TBD | Pending |
-| API-06 | TBD | Pending |
-| API-07 | TBD | Pending |
-| API-08 | TBD | Pending |
-| API-09 | TBD | Pending |
-| API-10 | TBD | Pending |
-| NOTF-01 | TBD | Pending |
-| NOTF-02 | TBD | Pending |
-| NOTF-03 | TBD | Pending |
-| AUDT-01 | TBD | Pending |
-| I18N-04 | TBD | Pending |
-| I18N-05 | TBD | Pending |
-| I18N-06 | TBD | Pending |
-| I18N-07 | TBD | Pending |
+| PROF-01 | Phase 11 | Pending |
+| PROF-02 | Phase 12 | Pending |
+| UPDT-01 | Phase 11 | Pending |
+| UPDT-02 | Phase 11 | Pending |
+| UPDT-03 | Phase 11 | Pending |
+| UPDT-04 | Phase 11 | Pending |
+| UPDT-05 | Phase 11 | Pending |
+| UPDT-06 | Phase 11 | Pending |
+| API-04 | Phase 9 | Pending |
+| API-05 | Phase 9 | Pending |
+| API-06 | Phase 9 | Pending |
+| API-07 | Phase 9 | Pending |
+| API-08 | Phase 9 | Pending |
+| API-09 | Phase 9 | Pending |
+| API-10 | Phase 9 | Pending |
+| NOTF-01 | Phase 10 | Pending |
+| NOTF-02 | Phase 10 | Pending |
+| NOTF-03 | Phase 10 | Pending |
+| AUDT-01 | Phase 10 | Pending |
+| I18N-04 | Phase 11 | Pending |
+| I18N-05 | Phase 11 | Pending |
+| I18N-06 | Phase 10 | Pending |
+| I18N-07 | Phase 10 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 23 total
-- Mapped to phases: 0 (run /gsd:create-roadmap)
-- Unmapped: 23
+- Mapped to phases: 23
+- Unmapped: 0 ✓
 
 ---
 
