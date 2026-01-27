@@ -227,4 +227,74 @@ public class AccountResource {
         return new Success(null, "password.changed", "Your password has been changed", Map.of());
     }
 
+    /**
+     * PUT /api/account/phone to update the current user's phone number.
+     * @param dto contains the new phone number
+     * @return success response
+     */
+    @PutMapping(value = "/api/account/phone", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Success updatePhone(@Valid @RequestBody ChangePhoneDto dto) {
+        userProfileService.updatePhone(dto.getPhone())
+            .orElseThrow(() -> new AuthorizationException("User not found", SecurityError.USER_NOT_FOUND));
+        return new Success(null, "phone.changed", "Your phone number has been updated", Map.of());
+    }
+
+    /**
+     * PUT /api/account/address to update the current user's address.
+     * @param dto contains all address fields
+     * @return success response
+     */
+    @PutMapping(value = "/api/account/address", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Success updateAddress(@Valid @RequestBody AddressDto dto) {
+        Address address = new Address();
+        address.setName(dto.getName());
+        address.setCompanyName(dto.getCompanyName());
+        address.setAddressLine1(dto.getAddressLine1());
+        address.setAddressLine2(dto.getAddressLine2());
+        address.setAddressLine3(dto.getAddressLine3());
+        address.setCity(dto.getCity());
+        address.setStateProvince(dto.getStateProvince());
+        address.setPostalCode(dto.getPostalCode());
+        address.setCountry(dto.getCountry());
+
+        userProfileService.updatePostalAddress(address)
+            .orElseThrow(() -> new AuthorizationException("User not found", SecurityError.USER_NOT_FOUND));
+        return new Success(null, "address.changed", "Your address has been updated", Map.of());
+    }
+
+    /**
+     * PUT /api/account/info to update the current user's core information.
+     * @param dto contains firstName, lastName, langKey, nationalId, gender, title
+     * @return success response
+     */
+    @PutMapping(value = "/api/account/info", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Success updateInfo(@Valid @RequestBody UpdateUserInfoDto dto) {
+        userProfileService.updateUserInformation(
+            dto.getFirstName(),
+            dto.getLastName(),
+            dto.getLangKey(),
+            dto.getNationalId(),
+            dto.getGender(),
+            dto.getTitle())
+            .orElseThrow(() -> new AuthorizationException("User not found", SecurityError.USER_NOT_FOUND));
+        return new Success(null, "info.changed", "Your profile information has been updated", Map.of());
+    }
+
+    /**
+     * PUT /api/account/2fa to toggle two-factor authentication.
+     * @param dto contains enabled flag and password for verification
+     * @return success response
+     */
+    @PutMapping(value = "/api/account/2fa", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Success toggle2fa(@Valid @RequestBody Toggle2faDto dto) {
+        userProfileService.toggle2fa(dto.getEnabled(), dto.getPassword())
+            .orElseThrow(() -> new AuthorizationException("User not found or password mismatch", SecurityError.EMAIL_OR_PW_MISMATCH));
+        String status = dto.getEnabled() ? "enabled" : "disabled";
+        return new Success(null, "2fa.changed", "Two-factor authentication has been " + status, Map.of());
+    }
+
 }
