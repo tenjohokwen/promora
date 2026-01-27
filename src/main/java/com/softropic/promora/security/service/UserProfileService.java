@@ -73,14 +73,19 @@ public class UserProfileService {
     public Optional<User> updatePostalAddress(Address address) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
                 .map(u -> {
+                    // Capture old address before update
+                    Address oldAddress = u.getAddresses().stream().findFirst().orElse(null);
+                    String oldAddressStr = formatAddress(oldAddress);
+
                     u.addOrReplaceAddress(address);
+                    String newAddressStr = formatAddress(address);
 
                     // Publish event for notification and audit
                     Recipient recipient = buildRecipient(u);
                     AccountChangeEvent event = new AccountChangeEvent(
                             AccountChangeEvent.Action.ADDRESS_CHANGED,
-                            null,
-                            null,
+                            oldAddressStr,
+                            newAddressStr,
                             recipient
                     );
                     publisher.publishEvent(event);
@@ -174,9 +179,23 @@ public class UserProfileService {
     public Optional<User> updatePhone(String phone) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
                 .map(user -> {
+                    // Capture old phone before update
+                    String oldPhone = user.getPhone() != null ? user.getPhone().getPhone() : null;
+
                     PhoneNumber phoneNumber = toPhoneNumber(phone);
                     user.setPhone(phoneNumber);
                     log.debug("Changed phone for User: {}", user.getLogin());
+
+                    // Publish event for notification and audit
+                    Recipient recipient = buildRecipient(user);
+                    AccountChangeEvent event = new AccountChangeEvent(
+                            AccountChangeEvent.Action.PHONE_CHANGED,
+                            oldPhone,
+                            phone,
+                            recipient
+                    );
+                    publisher.publishEvent(event);
+
                     return user;
                 });
     }
@@ -257,5 +276,34 @@ public class UserProfileService {
         recipient.setTitle(user.getTitle());
         recipient.setGender(user.getGender() != null ? user.getGender().name() : null);
         return recipient;
+    }
+
+    /**
+     * Formats an Address entity as a string for audit trail purposes.
+     *
+     * @param address the address entity
+     * @return formatted address string, or null if address is null
+     */
+    private String formatAddress(Address address) {
+        if (address == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        if (StringUtils.isNotBlank(address.getAddressLine1())) {
+            sb.append(address.getAddressLine1());
+        }
+        if (StringUtils.isNotBlank(address.getCity())) {
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(address.getCity());
+        }
+        if (StringUtils.isNotBlank(address.getStateProvince())) {
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(address.getStateProvince());
+        }
+        if (StringUtils.isNotBlank(address.getCountry())) {
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(address.getCountry());
+        }
+        return sb.length() > 0 ? sb.toString() : null;
     }
 }

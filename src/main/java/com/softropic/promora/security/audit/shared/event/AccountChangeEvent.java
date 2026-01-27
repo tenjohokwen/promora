@@ -36,6 +36,7 @@ public class AccountChangeEvent {
         PASSWORD_CHANGED, //send email
         EMAIL_CHANGED, //send email to old address
         ADDRESS_CHANGED, //send email
+        PHONE_CHANGED, //send email
         TWO_FACTOR_AUTH_ENABLED, //send email
         TWO_FACTOR_AUTH_DISABLED, //send email
         OTHERS;
