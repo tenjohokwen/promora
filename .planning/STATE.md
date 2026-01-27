@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 9 of 12 (Backend Profile API)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In progress
-Last activity: 2026-01-27 — Completed 09-01-PLAN.md (Request DTOs)
+Last activity: 2026-01-27 — Completed 09-02-PLAN.md (Service Methods)
 
-Progress: █░░░░░░░░░ 8%
+Progress: ██░░░░░░░░ 17%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1 (v1.1)
-- Average duration: 4 min
-- Total execution time: 4 min
+- Total plans completed: 2 (v1.1)
+- Average duration: 4.5 min
+- Total execution time: 9 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 09-backend-profile-api | 1 | 4 min | 4 min |
+| 09-backend-profile-api | 2 | 9 min | 4.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 09-01 (4 min)
-- Trend: Establishing baseline
+- Last 5 plans: 09-01 (4 min), 09-02 (5 min)
+- Trend: Consistent fast execution
 
 ## Accumulated Context
 
@@ -44,6 +44,8 @@ Recent decisions affecting current work:
 - All DTOs class-based (not records) to match existing ChangeEmailDto pattern
 - Toggle2faDto requires password field for security verification
 - DTO package location: security/api/dto/
+- Password change throws SecException on mismatch (not empty Optional)
+- Phone conversion uses private toPhoneNumber() helper in UserProfileService
 
 ### Pending Todos
 
@@ -55,8 +57,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-27T13:07:03Z
-Stopped at: Completed 09-01-PLAN.md (Request DTOs)
+Last session: 2026-01-27T13:20:00Z
+Stopped at: Completed 09-02-PLAN.md (Service Methods)
 Resume file: None
 
 ---
