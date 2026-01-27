@@ -1,115 +1,114 @@
-# Requirements: Promora Frontend Security Features
+# Requirements: Promora User Profile
 
-**Source:** docs/frontend-implementation-spec.md
-**Version:** v1
+**Defined:** 2026-01-27
+**Core Value:** Secure, user-friendly account management with proper security notifications for all sensitive changes.
 
-## Categories
+## v1.1 Requirements
 
-### Infrastructure (INFRA)
+Requirements for user profile milestone. Each maps to roadmap phases.
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| INFRA-01 | Axios instance with request/response interceptors for cross-cutting concerns | v1 |
-| INFRA-02 | Session manager plugin tracking activity and warning before 15-min expiry | v1 |
-| INFRA-03 | Error handler utility parsing backend ErrorDto into structured objects | v1 |
+### Profile Display (PROF)
 
-### Composables (COMP)
+- [ ] **PROF-01**: User can view profile page showing email, masked password, phone, address, core info, 2FA status
+- [ ] **PROF-02**: User can access profile page via menu link in navigation bar
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| COMP-01 | useSession composable with reactive session state, refresh, and logout | v1 |
-| COMP-02 | useErrorHandler composable with form error state and field-level errors | v1 |
-| COMP-03 | useLoading composable tracking global loading state from pending requests | v1 |
+### Profile Updates (UPDT)
 
-### API Services (API)
+- [ ] **UPDT-01**: User can update email address (requires verification of new email)
+- [ ] **UPDT-02**: User can update password (requires current password)
+- [ ] **UPDT-03**: User can update phone number
+- [ ] **UPDT-04**: User can update address (name, companyName, addressLine1-3, city, stateProvince, postalCode, country)
+- [ ] **UPDT-05**: User can update core info (firstName, lastName, nationalId, gender, title, langKey)
+- [ ] **UPDT-06**: User can toggle 2FA (requires password verification)
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| API-01 | authApi service with login, OTP verification, logout, and auth check | v1 |
-| API-02 | accountApi service with registration, activation, password reset | v1 |
-| API-03 | sessionApi service with session refresh | v1 |
+### Backend API (API)
 
-### Global Components (GLOB)
+- [ ] **API-04**: GET /api/account/profile endpoint returns user profile data
+- [ ] **API-05**: PUT /api/account/email endpoint updates email with verification
+- [ ] **API-06**: PUT /api/account/password endpoint updates password
+- [ ] **API-07**: PUT /api/account/phone endpoint updates phone number
+- [ ] **API-08**: PUT /api/account/address endpoint updates address
+- [ ] **API-09**: PUT /api/account/info endpoint updates core user info
+- [ ] **API-10**: PUT /api/account/2fa endpoint toggles two-factor authentication
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| GLOB-01 | GlobalLoadingBar component showing loading indicator during requests | v1 |
-| GLOB-02 | SessionWarningDialog component with continue/logout options | v1 |
-| GLOB-03 | App.vue integration including global components | v1 |
+### Notifications (NOTF)
 
-### Page Components (PAGE)
+- [ ] **NOTF-01**: AccountChangeEvent listener processes profile change events
+- [ ] **NOTF-02**: Email notification sent for all profile changes
+- [ ] **NOTF-03**: Generic Thymeleaf email template for profile change notifications
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| PAGE-01 | LoginPage with email/password, 2FA redirect handling, session expired message | v1 |
-| PAGE-02 | RegisterPage with multi-field form, password confirmation, validation | v1 |
-| PAGE-03 | OtpPage with 6-digit input, auto-submit, resend capability | v1 |
-| PAGE-04 | ForgotPasswordPage with email/DOB for password reset initiation | v1 |
-| PAGE-05 | ResetPasswordPage with new password entry and confirmation | v1 |
-| PAGE-06 | ActivatePage with auto-activation on mount and error handling | v1 |
+### Audit (AUDT)
 
-### Router (ROUT)
-
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| ROUT-01 | Route definitions for all auth pages with proper meta flags | v1 |
-| ROUT-02 | Auth guards protecting authenticated routes, redirecting guests | v1 |
+- [ ] **AUDT-01**: All profile changes recorded in audit trail via TrailService
 
 ### Internationalization (I18N)
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| I18N-01 | English (en-US) translation file with all required keys | v1 |
-| I18N-02 | French (fr-FR) translation file with all required keys | v1 |
-| I18N-03 | i18n boot file configuration | v1 |
+- [ ] **I18N-04**: English (en-US) translations for profile page and update dialogs
+- [ ] **I18N-05**: French (fr-FR) translations for profile page and update dialogs
+- [ ] **I18N-06**: English (en-US) translations for profile change email template
+- [ ] **I18N-07**: French (fr-FR) translations for profile change email template
 
-## Summary
+## v2 Requirements
 
-| Category | v1 Count |
-|----------|----------|
-| Infrastructure | 3 |
-| Composables | 3 |
-| API Services | 3 |
-| Global Components | 3 |
-| Page Components | 6 |
-| Router | 2 |
-| Internationalization | 3 |
-| **Total** | **23** |
+Deferred to future release. Tracked but not in current roadmap.
+
+### Profile Enhancements
+
+- **PROF-03**: User can upload and display profile photo
+- **PROF-04**: User can manage multiple addresses (HOME, WORK, etc.)
+
+### Account Management
+
+- **ACCT-01**: User can delete their account (with confirmation flow)
+- **ACCT-02**: User can export their account data
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| Multiple addresses per user | Single address sufficient for v1.1 |
+| Profile photo upload | Deferred to v2 |
+| Account deletion | Requires additional security considerations |
+| Account data export | GDPR feature, deferred to v2 |
 
 ## Traceability
 
+Which phases cover which requirements. Updated by create-roadmap.
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Complete |
-| INFRA-02 | Phase 3 | Complete |
-| INFRA-03 | Phase 1 | Complete |
-| COMP-01 | Phase 3 | Complete |
-| COMP-02 | Phase 3 | Complete |
-| COMP-03 | Phase 3 | Complete |
-| API-01 | Phase 2 | Complete |
-| API-02 | Phase 2 | Complete |
-| API-03 | Phase 2 | Complete |
-| GLOB-01 | Phase 4 | Complete |
-| GLOB-02 | Phase 4 | Complete |
-| GLOB-03 | Phase 4 | Complete |
-| PAGE-01 | Phase 5 | Complete |
-| PAGE-02 | Phase 5 | Complete |
-| PAGE-03 | Phase 5 | Complete |
-| PAGE-04 | Phase 6 | Complete |
-| PAGE-05 | Phase 6 | Complete |
-| PAGE-06 | Phase 6 | Complete |
-| ROUT-01 | Phase 7 | Complete |
-| ROUT-02 | Phase 7 | Complete |
-| I18N-01 | Phase 1 | Complete |
-| I18N-02 | Phase 1 | Complete |
-| I18N-03 | Phase 1 | Complete |
+| PROF-01 | TBD | Pending |
+| PROF-02 | TBD | Pending |
+| UPDT-01 | TBD | Pending |
+| UPDT-02 | TBD | Pending |
+| UPDT-03 | TBD | Pending |
+| UPDT-04 | TBD | Pending |
+| UPDT-05 | TBD | Pending |
+| UPDT-06 | TBD | Pending |
+| API-04 | TBD | Pending |
+| API-05 | TBD | Pending |
+| API-06 | TBD | Pending |
+| API-07 | TBD | Pending |
+| API-08 | TBD | Pending |
+| API-09 | TBD | Pending |
+| API-10 | TBD | Pending |
+| NOTF-01 | TBD | Pending |
+| NOTF-02 | TBD | Pending |
+| NOTF-03 | TBD | Pending |
+| AUDT-01 | TBD | Pending |
+| I18N-04 | TBD | Pending |
+| I18N-05 | TBD | Pending |
+| I18N-06 | TBD | Pending |
+| I18N-07 | TBD | Pending |
 
 **Coverage:**
-- v1 requirements: 23 total
-- Mapped to phases: 23
-- Unmapped: 0
+- v1.1 requirements: 23 total
+- Mapped to phases: 0 (run /gsd:create-roadmap)
+- Unmapped: 23
 
 ---
 
-*Requirements derived: 2026-01-17*
-*Source: docs/frontend-implementation-spec.md*
+*Requirements defined: 2026-01-27*
+*Last updated: 2026-01-27 after v1.1 milestone start*
