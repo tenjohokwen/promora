@@ -26,6 +26,7 @@ import java.util.UUID;
 @Component
 public class AccountChangeEventListener {
 
+    //TODO This class knows about the email component. Redesign the account change process and AccountChangeEvent so that the audit package works independently of the email package
     private final TrailService trailService;
     private final ApplicationEventPublisher publisher;
     private final String baseUrl;
