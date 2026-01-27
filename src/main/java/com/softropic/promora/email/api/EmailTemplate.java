@@ -7,7 +7,8 @@ public enum EmailTemplate {
     PASSWORD_RESET("email.pw_reset.title"),
     SEND_OTP("email.otp.title"),
     EMAIL_CHANGE("email.change.title"),
-    POST_PURCHASE("email.post_purchase.title");
+    POST_PURCHASE("email.post_purchase.title"),
+    PROFILE_CHANGE("email.profile_change.title");
 
     private final String subjectKey;
     EmailTemplate(final String subjectKey) {
