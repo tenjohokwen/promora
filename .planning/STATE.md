@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 10 of 12 (Notifications & Audit)
-Plan: 1 of 1 complete
+Plan: 2 of 2 complete
 Status: Phase complete
-Last activity: 2026-01-27 - Completed 10-01-PLAN.md
+Last activity: 2026-01-27 - Completed 10-02-PLAN.md
 
-Progress: ███░░░░░░░ 31%
+Progress: ████░░░░░░ 38%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5 (v1.1)
-- Average duration: 4.2 min
-- Total execution time: 21 min
+- Total plans completed: 6 (v1.1)
+- Average duration: 3.8 min
+- Total execution time: 23 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 09-backend-profile-api | 4 | 18 min | 4.5 min |
-| 10-notifications-audit | 1 | 3 min | 3 min |
+| 10-notifications-audit | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 09-01 (4 min), 09-02 (5 min), 09-03 (4 min), 09-04 (5 min), 10-01 (3 min)
+- Last 5 plans: 09-02 (5 min), 09-03 (4 min), 09-04 (5 min), 10-01 (3 min), 10-02 (2 min)
 - Trend: Consistent fast execution
 
 ## Accumulated Context
@@ -52,6 +52,7 @@ Recent decisions affecting current work:
 - ProfileResource controller for new API, AccountResource for legacy
 - Use th:switch for action-specific email content (cleaner than multiple th:if)
 - Set authenticated to true for all profile changes (requires auth)
+- Email change notification sent to OLD email address for security
 
 ### Pending Todos
 
@@ -63,8 +64,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-27T19:17:42Z
-Stopped at: Completed 10-01-PLAN.md (Notifications & Audit Infrastructure)
+Last session: 2026-01-27T20:27:00Z
+Stopped at: Completed 10-02-PLAN.md (Event Publishing in UserProfileService)
 Resume file: None
 
 ---
