@@ -5,32 +5,32 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Secure, user-friendly account management with proper security notifications
-**Current focus:** Phase 9 — Backend Profile API
+**Current focus:** Phase 9 complete - Backend Profile API
 
 ## Current Position
 
 Phase: 9 of 12 (Backend Profile API)
-Plan: 2 of 3 complete
-Status: In progress
-Last activity: 2026-01-27 — Completed 09-02-PLAN.md (Service Methods)
+Plan: 3 of 3 complete
+Status: Phase complete
+Last activity: 2026-01-27 - Completed 09-03-PLAN.md (Profile REST Endpoints)
 
-Progress: ██░░░░░░░░ 17%
+Progress: ███░░░░░░░ 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2 (v1.1)
-- Average duration: 4.5 min
-- Total execution time: 9 min
+- Total plans completed: 3 (v1.1)
+- Average duration: 4.3 min
+- Total execution time: 13 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 09-backend-profile-api | 2 | 9 min | 4.5 min |
+| 09-backend-profile-api | 3 | 13 min | 4.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 09-01 (4 min), 09-02 (5 min)
+- Last 5 plans: 09-01 (4 min), 09-02 (5 min), 09-03 (4 min)
 - Trend: Consistent fast execution
 
 ## Accumulated Context
@@ -46,6 +46,8 @@ Recent decisions affecting current work:
 - DTO package location: security/api/dto/
 - Password change throws SecException on mismatch (not empty Optional)
 - Phone conversion uses private toPhoneNumber() helper in UserProfileService
+- New endpoints under /api/account path (separate from /v1/account legacy)
+- DTO to entity conversion in controller for AddressDto
 
 ### Pending Todos
 
@@ -57,8 +59,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-27T13:20:00Z
-Stopped at: Completed 09-02-PLAN.md (Service Methods)
+Last session: 2026-01-27T14:34:00Z
+Stopped at: Completed 09-03-PLAN.md (Profile REST Endpoints)
 Resume file: None
 
 ---
