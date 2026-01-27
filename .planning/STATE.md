@@ -2,26 +2,30 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-21)
+See: .planning/PROJECT.md (updated 2026-01-27)
 
-**Core value:** Frontend authentication and security UI
-**Current focus:** v1.0.0 complete — awaiting next milestone
+**Core value:** Secure, user-friendly account management with security notifications
+**Current focus:** v1.1 User Profile
 
 ## Current Position
 
-Phase: Complete
-Status: MILESTONE COMPLETE
-Last activity: 2026-01-21 — v1.0.0 milestone archived
+Phase: Not started (run /gsd:define-requirements then /gsd:create-roadmap)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-27 — Milestone v1.1 started
 
-## Milestone v1.0.0 Summary
+## Milestone v1.1 Target
 
-**Completed:** 2026-01-20
-**Requirements:** 23/23 delivered
-**Phases:** 8/8 complete
-**Plans:** 12/12 executed
+**Goal:** User profile management with security notifications and audit trails
 
-See `.planning/MILESTONES.md` for full details.
-Archive: `.planning/archive/v1/`
+**Features:**
+- Profile page with user info display
+- 6 independent update actions (email, password, phone, address, core info, 2FA)
+- Backend API endpoints
+- AccountChangeEvent listener + email notifications
+- Security audit trail
+
+**Estimated phases:** 4 (Phases 9-12)
 
 ## Accumulated Context
 
@@ -37,19 +41,18 @@ Archive: `.planning/archive/v1/`
 
 ### Pending Todos
 
-None — milestone complete.
+None — fresh milestone.
 
 ### Blockers/Concerns
 
-None — all v1 work delivered.
+None.
 
-## Next Milestone
+## Next Steps
 
-To start next milestone:
-1. `/gsd:new-milestone` — Define v1.1 or v2 scope
-2. `/gsd:define-requirements` — Specify what "done" looks like
-3. `/gsd:create-roadmap` — Break down into phases
+1. `/gsd:define-requirements` — Specify what "done" looks like
+2. `/gsd:create-roadmap` — Break down into phases
+3. `/gsd:plan-phase 9` — Plan first phase
 
 ---
 
-*v1.0.0 archived: 2026-01-21*
+*v1.1 started: 2026-01-27*
