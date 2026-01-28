@@ -9,17 +9,17 @@ Requirements for user profile milestone. Each maps to roadmap phases.
 
 ### Profile Display (PROF)
 
-- [ ] **PROF-01**: User can view profile page showing email, masked password, phone, address, core info, 2FA status
+- [x] **PROF-01**: User can view profile page showing email, masked password, phone, address, core info, 2FA status
 - [ ] **PROF-02**: User can access profile page via menu link in navigation bar
 
 ### Profile Updates (UPDT)
 
-- [ ] **UPDT-01**: User can update email address (requires verification of new email)
-- [ ] **UPDT-02**: User can update password (requires current password)
-- [ ] **UPDT-03**: User can update phone number
-- [ ] **UPDT-04**: User can update address (name, companyName, addressLine1-3, city, stateProvince, postalCode, country)
-- [ ] **UPDT-05**: User can update core info (firstName, lastName, nationalId, gender, title, langKey)
-- [ ] **UPDT-06**: User can toggle 2FA (requires password verification)
+- [x] **UPDT-01**: User can update email address (requires verification of new email)
+- [x] **UPDT-02**: User can update password (requires current password)
+- [x] **UPDT-03**: User can update phone number
+- [x] **UPDT-04**: User can update address (name, companyName, addressLine1-3, city, stateProvince, postalCode, country)
+- [x] **UPDT-05**: User can update core info (firstName, lastName, nationalId, gender, title, langKey)
+- [x] **UPDT-06**: User can toggle 2FA (requires password verification)
 
 ### Backend API (API)
 
@@ -43,8 +43,8 @@ Requirements for user profile milestone. Each maps to roadmap phases.
 
 ### Internationalization (I18N)
 
-- [ ] **I18N-04**: English (en-US) translations for profile page and update dialogs
-- [ ] **I18N-05**: French (fr-FR) translations for profile page and update dialogs
+- [x] **I18N-04**: English (en-US) translations for profile page and update dialogs
+- [x] **I18N-05**: French (fr-FR) translations for profile page and update dialogs
 - [x] **I18N-06**: English (en-US) translations for profile change email template
 - [x] **I18N-07**: French (fr-FR) translations for profile change email template
 
@@ -79,14 +79,14 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PROF-01 | Phase 11 | Pending |
+| PROF-01 | Phase 11 | Complete |
 | PROF-02 | Phase 12 | Pending |
-| UPDT-01 | Phase 11 | Pending |
-| UPDT-02 | Phase 11 | Pending |
-| UPDT-03 | Phase 11 | Pending |
-| UPDT-04 | Phase 11 | Pending |
-| UPDT-05 | Phase 11 | Pending |
-| UPDT-06 | Phase 11 | Pending |
+| UPDT-01 | Phase 11 | Complete |
+| UPDT-02 | Phase 11 | Complete |
+| UPDT-03 | Phase 11 | Complete |
+| UPDT-04 | Phase 11 | Complete |
+| UPDT-05 | Phase 11 | Complete |
+| UPDT-06 | Phase 11 | Complete |
 | API-04 | Phase 9 | Complete |
 | API-05 | Phase 9 | Complete |
 | API-06 | Phase 9 | Complete |
@@ -98,8 +98,8 @@ Which phases cover which requirements. Updated by create-roadmap.
 | NOTF-02 | Phase 10 | Complete |
 | NOTF-03 | Phase 10 | Complete |
 | AUDT-01 | Phase 10 | Complete |
-| I18N-04 | Phase 11 | Pending |
-| I18N-05 | Phase 11 | Pending |
+| I18N-04 | Phase 11 | Complete |
+| I18N-05 | Phase 11 | Complete |
 | I18N-06 | Phase 10 | Complete |
 | I18N-07 | Phase 10 | Complete |
 
@@ -111,4 +111,4 @@ Which phases cover which requirements. Updated by create-roadmap.
 ---
 
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after v1.1 milestone start*
+*Last updated: 2026-01-28 after Phase 11 complete*

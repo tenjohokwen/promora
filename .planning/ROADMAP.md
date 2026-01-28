@@ -37,7 +37,7 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
 
 - [x] **Phase 9: Backend Profile API** — Profile management API endpoints
 - [x] **Phase 10: Notifications & Audit** — Email notifications and audit trail
-- [ ] **Phase 11: Frontend Profile Page** — Profile display and update dialogs
+- [x] **Phase 11: Frontend Profile Page** — Profile display and update dialogs
 - [ ] **Phase 12: Menu Integration** — Profile navigation and routing
 
 ## Phase Details
@@ -86,7 +86,8 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
   7. User can toggle 2FA (with password confirmation)
   8. All text displays in English or French based on locale
 **Research**: Unlikely — follows existing page patterns from v1.0.0
-**Plans**: TBD
+**Plans**: 4 (11-01 through 11-04)
+**Completed**: 2026-01-28
 
 ### Phase 12: Menu Integration
 **Goal**: Add profile navigation to menu and wire router
@@ -107,7 +108,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12
 |-------|----------------|--------|-----------|
 | 9. Backend Profile API | 4/4 | ✓ Complete | 2026-01-27 |
 | 10. Notifications & Audit | 2/2 | ✓ Complete | 2026-01-27 |
-| 11. Frontend Profile Page | 0/TBD | Not started | — |
+| 11. Frontend Profile Page | 4/4 | ✓ Complete | 2026-01-28 |
 | 12. Menu Integration | 0/TBD | Not started | — |
 
 ---
