@@ -183,6 +183,9 @@ import { useErrorHandler } from 'src/composables/useErrorHandler';
 import UpdateEmailDialog from 'src/components/profile/UpdateEmailDialog.vue';
 import UpdatePasswordDialog from 'src/components/profile/UpdatePasswordDialog.vue';
 import UpdatePhoneDialog from 'src/components/profile/UpdatePhoneDialog.vue';
+import UpdateAddressDialog from 'src/components/profile/UpdateAddressDialog.vue';
+import UpdateInfoDialog from 'src/components/profile/UpdateInfoDialog.vue';
+import Toggle2faDialog from 'src/components/profile/Toggle2faDialog.vue';
 
 const { t } = useI18n();
 const { setError, clearError, hasError, errorMessage, helpCode } = useErrorHandler();
@@ -249,5 +252,18 @@ const languageLabel = computed(() => {
     fr: t('auth.languageFrench')
   };
   return langMap[profile.value.langKey] || profile.value.langKey;
+});
+
+// Computed for currentInfo (to pass to UpdateInfoDialog)
+const currentInfo = computed(() => {
+  if (!profile.value) return null;
+  return {
+    title: profile.value.title,
+    firstName: profile.value.firstName,
+    lastName: profile.value.lastName,
+    nationalId: profile.value.nationalId,
+    gender: profile.value.gender,
+    langKey: profile.value.langKey
+  };
 });
 </script>
