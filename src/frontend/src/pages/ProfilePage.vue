@@ -141,6 +141,37 @@
         </template>
       </q-card>
     </div>
+
+    <!-- Update Dialogs -->
+    <UpdateEmailDialog
+      v-model="showEmailDialog"
+      :current-email="profile?.email"
+      @updated="loadProfile"
+    />
+    <UpdatePasswordDialog
+      v-model="showPasswordDialog"
+      @updated="loadProfile"
+    />
+    <UpdatePhoneDialog
+      v-model="showPhoneDialog"
+      :current-phone="profile?.phone"
+      @updated="loadProfile"
+    />
+    <UpdateAddressDialog
+      v-model="showAddressDialog"
+      :current-address="profile?.address"
+      @updated="loadProfile"
+    />
+    <UpdateInfoDialog
+      v-model="showInfoDialog"
+      :current-info="currentInfo"
+      @updated="loadProfile"
+    />
+    <Toggle2faDialog
+      v-model="show2faDialog"
+      :current-enabled="profile?.otpEnabled"
+      @updated="loadProfile"
+    />
   </q-page>
 </template>
 
@@ -149,6 +180,9 @@ import { ref, onMounted, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { profileApi } from 'src/api/profile.api';
 import { useErrorHandler } from 'src/composables/useErrorHandler';
+import UpdateEmailDialog from 'src/components/profile/UpdateEmailDialog.vue';
+import UpdatePasswordDialog from 'src/components/profile/UpdatePasswordDialog.vue';
+import UpdatePhoneDialog from 'src/components/profile/UpdatePhoneDialog.vue';
 
 const { t } = useI18n();
 const { setError, clearError, hasError, errorMessage, helpCode } = useErrorHandler();
