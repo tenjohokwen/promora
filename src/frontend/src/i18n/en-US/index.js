@@ -93,7 +93,14 @@ export default {
     activated: 'Your account has been activated. You can now log in.',
     passwordReset: 'Your password has been reset. You can now log in with your new password.',
     emailSent: 'Please check your email for further instructions.',
-    loggedOut: 'You have been logged out successfully.'
+    loggedOut: 'You have been logged out successfully.',
+    emailChangeInitiated: 'Email update initiated. Please check your new email for verification.',
+    passwordChanged: 'Your password has been changed successfully.',
+    phoneChanged: 'Your phone number has been updated.',
+    addressChanged: 'Your address has been updated.',
+    infoChanged: 'Your profile information has been updated.',
+    twoFactorEnabled: 'Two-factor authentication has been enabled.',
+    twoFactorDisabled: 'Two-factor authentication has been disabled.'
   },
   common: {
     submit: 'Submit',
@@ -103,6 +110,45 @@ export default {
     next: 'Next',
     loading: 'Loading...',
     or: 'or',
-    menu: 'Menu'
+    menu: 'Menu',
+    new: 'New'
+  },
+  profile: {
+    title: 'My Profile',
+    email: 'Email Address',
+    password: 'Password',
+    passwordMasked: '********',
+    phone: 'Phone Number',
+    noPhone: 'Not provided',
+    address: 'Address',
+    noAddress: 'Not provided',
+    personalInfo: 'Personal Information',
+    twoFactorAuth: 'Two-Factor Authentication',
+    enabled: 'Enabled',
+    disabled: 'Disabled',
+    edit: 'Edit',
+    // Dialog titles
+    updateEmail: 'Update Email Address',
+    updatePassword: 'Change Password',
+    updatePhone: 'Update Phone Number',
+    updateAddress: 'Update Address',
+    updateInfo: 'Update Personal Information',
+    toggle2fa: 'Two-Factor Authentication',
+    // Address fields
+    addressName: 'Address Label',
+    addressNameHint: 'e.g., HOME, WORK',
+    companyName: 'Company Name',
+    addressLine1: 'Address Line 1',
+    addressLine2: 'Address Line 2',
+    addressLine3: 'Address Line 3',
+    city: 'City',
+    stateProvince: 'State/Province',
+    postalCode: 'Postal Code',
+    country: 'Country',
+    // 2FA dialog
+    enable2fa: 'Enable Two-Factor Authentication',
+    disable2fa: 'Disable Two-Factor Authentication',
+    confirm2faEnable: 'Enter your password to enable two-factor authentication.',
+    confirm2faDisable: 'Enter your password to disable two-factor authentication.'
   }
 }
