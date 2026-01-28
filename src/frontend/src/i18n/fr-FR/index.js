@@ -93,7 +93,14 @@ export default {
     activated: 'Votre compte a ete active. Vous pouvez maintenant vous connecter.',
     passwordReset: 'Votre mot de passe a ete reinitialise. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.',
     emailSent: 'Veuillez verifier votre email pour les instructions.',
-    loggedOut: 'Vous avez ete deconnecte avec succes.'
+    loggedOut: 'Vous avez ete deconnecte avec succes.',
+    emailChangeInitiated: 'Modification de l\'e-mail initiee. Veuillez verifier votre nouvelle adresse e-mail.',
+    passwordChanged: 'Votre mot de passe a ete modifie avec succes.',
+    phoneChanged: 'Votre numero de telephone a ete mis a jour.',
+    addressChanged: 'Votre adresse a ete mise a jour.',
+    infoChanged: 'Vos informations personnelles ont ete mises a jour.',
+    twoFactorEnabled: 'L\'authentification a deux facteurs a ete activee.',
+    twoFactorDisabled: 'L\'authentification a deux facteurs a ete desactivee.'
   },
   common: {
     submit: 'Soumettre',
@@ -103,6 +110,45 @@ export default {
     next: 'Suivant',
     loading: 'Chargement...',
     or: 'ou',
-    menu: 'Menu'
+    menu: 'Menu',
+    new: 'Nouveau'
+  },
+  profile: {
+    title: 'Mon Profil',
+    email: 'Adresse e-mail',
+    password: 'Mot de passe',
+    passwordMasked: '********',
+    phone: 'Numero de telephone',
+    noPhone: 'Non fourni',
+    address: 'Adresse',
+    noAddress: 'Non fournie',
+    personalInfo: 'Informations personnelles',
+    twoFactorAuth: 'Authentification a deux facteurs',
+    enabled: 'Active',
+    disabled: 'Desactive',
+    edit: 'Modifier',
+    // Dialog titles
+    updateEmail: 'Modifier l\'adresse e-mail',
+    updatePassword: 'Changer le mot de passe',
+    updatePhone: 'Modifier le numero de telephone',
+    updateAddress: 'Modifier l\'adresse',
+    updateInfo: 'Modifier les informations personnelles',
+    toggle2fa: 'Authentification a deux facteurs',
+    // Address fields
+    addressName: 'Libelle de l\'adresse',
+    addressNameHint: 'ex: DOMICILE, TRAVAIL',
+    companyName: 'Nom de l\'entreprise',
+    addressLine1: 'Ligne d\'adresse 1',
+    addressLine2: 'Ligne d\'adresse 2',
+    addressLine3: 'Ligne d\'adresse 3',
+    city: 'Ville',
+    stateProvince: 'Etat/Province',
+    postalCode: 'Code postal',
+    country: 'Pays',
+    // 2FA dialog
+    enable2fa: 'Activer l\'authentification a deux facteurs',
+    disable2fa: 'Desactiver l\'authentification a deux facteurs',
+    confirm2faEnable: 'Entrez votre mot de passe pour activer l\'authentification a deux facteurs.',
+    confirm2faDisable: 'Entrez votre mot de passe pour desactiver l\'authentification a deux facteurs.'
   }
 }
