@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 11 of 12 (Frontend Profile Page)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-27 - Phase 10 verified and complete
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-01-28 - Completed 11-01-PLAN.md
 
-Progress: █████░░░░░ 50%
+Progress: ███████░░░ 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6 (v1.1)
-- Average duration: 3.8 min
-- Total execution time: 23 min
+- Total plans completed: 7 (v1.1)
+- Average duration: 3.7 min
+- Total execution time: 26 min
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: █████░░░░░ 50%
 |-------|-------|-------|----------|
 | 09-backend-profile-api | 4 | 18 min | 4.5 min |
 | 10-notifications-audit | 2 | 5 min | 2.5 min |
+| 11-frontend-profile-page | 1 | 3 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 09-02 (5 min), 09-03 (4 min), 09-04 (5 min), 10-01 (3 min), 10-02 (2 min)
+- Last 5 plans: 09-03 (4 min), 09-04 (5 min), 10-01 (3 min), 10-02 (2 min), 11-01 (3 min)
 - Trend: Consistent fast execution
 
 ## Accumulated Context
@@ -53,6 +54,7 @@ Recent decisions affecting current work:
 - Use th:switch for action-specific email content (cleaner than multiple th:if)
 - Set authenticated to true for all profile changes (requires auth)
 - Email change notification sent to OLD email address for security
+- Frontend API paths use /api/account/* (matching ProfileResource, not legacy /v1/account)
 
 ### Pending Todos
 
@@ -64,8 +66,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-27T20:27:00Z
-Stopped at: Completed 10-02-PLAN.md (Event Publishing in UserProfileService)
+Last session: 2026-01-28T01:47:02Z
+Stopped at: Completed 11-01-PLAN.md (API Service Layer & i18n)
 Resume file: None
 
 ---
