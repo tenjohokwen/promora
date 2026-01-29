@@ -7,7 +7,7 @@ Implement user profile management for the Promora Vue.js 3 + Quasar 2 applicatio
 ## Milestones
 
 - ✅ **v1.0.0 Frontend Security** — Phases 1-8 (shipped 2026-01-20)
-- 🚧 **v1.1 User Profile** — Phases 9-12 (in progress)
+- ✅ **v1.1 User Profile** — Phases 9-12 (shipped 2026-01-29)
 
 ## Phases
 
@@ -31,14 +31,14 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
 
 </details>
 
-### 🚧 v1.1 User Profile (In Progress)
+### ✅ v1.1 User Profile (Complete)
 
 **Milestone Goal:** Enable authenticated users to view and manage their profile information with security notifications and audit trails.
 
 - [x] **Phase 9: Backend Profile API** — Profile management API endpoints
 - [x] **Phase 10: Notifications & Audit** — Email notifications and audit trail
 - [x] **Phase 11: Frontend Profile Page** — Profile display and update dialogs
-- [ ] **Phase 12: Menu Integration** — Profile navigation and routing
+- [x] **Phase 12: Menu Integration** — Profile navigation and routing
 
 ## Phase Details
 
@@ -97,7 +97,8 @@ See `.planning/archive/v1/ROADMAP.md` for full details.
   1. User can access profile page via menu link in navigation bar
   2. Profile route defined with requiresAuth: true meta flag
 **Research**: Unlikely — follows existing router patterns
-**Plans**: TBD
+**Plans**: 1 (12-01)
+**Completed**: 2026-01-29
 
 ## Progress
 
@@ -109,7 +110,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12
 | 9. Backend Profile API | 4/4 | ✓ Complete | 2026-01-27 |
 | 10. Notifications & Audit | 2/2 | ✓ Complete | 2026-01-27 |
 | 11. Frontend Profile Page | 4/4 | ✓ Complete | 2026-01-28 |
-| 12. Menu Integration | 0/TBD | Not started | — |
+| 12. Menu Integration | 1/1 | ✓ Complete | 2026-01-29 |
 
 ---
 

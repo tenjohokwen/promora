@@ -10,7 +10,7 @@ Requirements for user profile milestone. Each maps to roadmap phases.
 ### Profile Display (PROF)
 
 - [x] **PROF-01**: User can view profile page showing email, masked password, phone, address, core info, 2FA status
-- [ ] **PROF-02**: User can access profile page via menu link in navigation bar
+- [x] **PROF-02**: User can access profile page via menu link in navigation bar
 
 ### Profile Updates (UPDT)
 
@@ -80,7 +80,7 @@ Which phases cover which requirements. Updated by create-roadmap.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | PROF-01 | Phase 11 | Complete |
-| PROF-02 | Phase 12 | Pending |
+| PROF-02 | Phase 12 | Complete |
 | UPDT-01 | Phase 11 | Complete |
 | UPDT-02 | Phase 11 | Complete |
 | UPDT-03 | Phase 11 | Complete |
@@ -111,4 +111,4 @@ Which phases cover which requirements. Updated by create-roadmap.
 ---
 
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-28 after Phase 11 complete*
+*Last updated: 2026-01-29 after Phase 12 complete*
