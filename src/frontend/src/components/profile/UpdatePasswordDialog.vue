@@ -74,6 +74,10 @@
             rounded
           >
             {{ errorMessage }}
+            <template v-if="helpCode">
+              <br />
+              <small>{{ t('error.helpCode') }}: {{ helpCode }}</small>
+            </template>
           </q-banner>
         </q-form>
       </q-card-section>
@@ -114,6 +118,7 @@ const {
   clearError,
   hasError,
   errorMessage,
+  helpCode,
   isValidationError,
   hasFieldError,
   getFieldError
