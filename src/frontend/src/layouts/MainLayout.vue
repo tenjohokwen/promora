@@ -90,6 +90,15 @@
             <q-item-label>Dashboard</q-item-label>
           </q-item-section>
         </q-item>
+
+        <q-item clickable to="/profile">
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ t('profile.title') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
