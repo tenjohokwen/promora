@@ -5,6 +5,8 @@ package com.softropic.promora.security.core.mapper;
 import com.softropic.promora.common.dto.PhoneNumberDto;
 import com.softropic.promora.common.validation.CamMobileValidator;
 import com.softropic.promora.common.validation.PhoneNumber;
+import com.softropic.promora.security.api.dto.AddressDto;
+import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.exposed.UserDto;
 import com.softropic.promora.security.domain.Authority;
 import com.softropic.promora.security.domain.User;
@@ -25,6 +27,7 @@ import jakarta.persistence.Persistence;
 public interface UserMapper {
     @Mapping(source = "dateOfBirth", target = "dob")
     @Mapping(target = "authorities", ignore = true)
+    @Mapping(target = "address", ignore = true)
     @Mapping(target = "login", expression = "java(StringUtils.lowerCase(user.getLogin()))")
     @Mapping(target = "email", expression = "java(StringUtils.lowerCase(user.getEmail()))")
     UserDto toUserDto(User user);
@@ -46,6 +49,15 @@ public interface UserMapper {
             userDto.setAuthorities(auths);
         }
     }
+
+    @AfterMapping
+    default void mapAddress(User user, @MappingTarget UserDto userDto) {
+        if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
+            userDto.setAddress(addressToAddressDto(user.getAddresses().iterator().next()));
+        }
+    }
+
+    AddressDto addressToAddressDto(Address address);
 
     /**
      * The method default Set<String> toAuthStrings(Set<Authority> auths) is not added so as to avoid lazyInitializationException

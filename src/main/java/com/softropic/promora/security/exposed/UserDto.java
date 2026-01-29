@@ -3,6 +3,7 @@ package com.softropic.promora.security.exposed;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.softropic.promora.common.Gender;
 import com.softropic.promora.common.validation.CamPhone;
+import com.softropic.promora.security.api.dto.AddressDto;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -67,6 +68,8 @@ public class UserDto {
     private LocalDate dob;
 
     private boolean otpEnabled;
+
+    private AddressDto address;
 
     public UserDto() {
     }
@@ -197,6 +200,14 @@ public class UserDto {
 
     public void setOtpEnabled(boolean otpEnabled) {
         this.otpEnabled = otpEnabled;
+    }
+
+    public AddressDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDto address) {
+        this.address = address;
     }
 
     @Override
