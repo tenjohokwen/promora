@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit.prevent="handleSubmit" class="q-gutter-md">
+        <q-form @submit.prevent="handleSubmit">
           <div class="row q-col-gutter-md">
             <!-- Title -->
             <div class="col-12 col-md-4">
@@ -90,7 +90,7 @@
           </div>
 
           <!-- Error banner -->
-          <q-banner v-if="hasError && !isValidationError" class="bg-negative text-white" rounded>
+          <q-banner v-if="hasError && !isValidationError" class="bg-negative text-white q-mt-md" rounded>
             {{ errorMessage }}
             <template v-if="helpCode">
               <br />

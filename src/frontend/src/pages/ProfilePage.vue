@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6 q-pa-md">
-      <q-card style="max-width: 600px; width: 100%;">
+    <div class="q-pa-md" style="width: 100%; max-width: 900px;">
+      <q-card>
         <q-card-section>
           <div class="text-h5 text-center">{{ t('profile.title') }}</div>
         </q-card-section>

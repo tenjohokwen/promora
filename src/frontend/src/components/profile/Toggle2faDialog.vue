@@ -41,7 +41,7 @@
       <q-card-actions align="right">
         <q-btn flat :label="$t('common.cancel')" @click="close" />
         <q-btn
-          :color="props.currentEnabled ? 'negative' : 'positive'"
+          color="primary"
           :label="props.currentEnabled ? $t('profile.disable2fa') : $t('profile.enable2fa')"
           :loading="isSubmitting"
           @click="handleSubmit"
