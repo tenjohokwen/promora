@@ -14,7 +14,7 @@
             :label="t('profile.phone')"
             outlined
             lazy-rules
-            :rules="[validCamPhone]"
+            :rules="[validCamPhone, notSamePhone]"
             :error="hasFieldError('phone')"
             :error-message="getFieldError('phone')"
             mask="#########"
@@ -89,6 +89,7 @@ const dialogVisible = ref(props.modelValue);
 const form = ref({
   phone: props.currentPhone || ''
 });
+const originalPhone = ref(props.currentPhone || '');
 const isSubmitting = ref(false);
 
 // Cameroon phone validation
@@ -99,6 +100,11 @@ const validCamPhone = (val) => {
   if (cleaned[0] !== '6') return t('validation.phone.firstDigit');
   return true;
 };
+const notSamePhone = (val) => {
+  const cleanedNew = (val || '').replace(/\D/g, '');
+  const cleanedOld = (originalPhone.value || '').replace(/\D/g, '');
+  return cleanedNew !== cleanedOld || t('validation.samePhone');
+};
 
 // Watch for external changes to modelValue
 watch(() => props.modelValue, (newVal) => {
@@ -106,6 +112,7 @@ watch(() => props.modelValue, (newVal) => {
   if (newVal) {
     // Reset form when dialog opens
     form.value.phone = props.currentPhone || '';
+    originalPhone.value = props.currentPhone || '';
     clearError();
   }
 });

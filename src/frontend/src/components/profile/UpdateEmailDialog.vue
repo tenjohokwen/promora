@@ -22,7 +22,7 @@
             :label="t('profile.email') + ' (' + t('common.new') + ')'"
             outlined
             lazy-rules
-            :rules="[required, validEmail]"
+            :rules="[required, validEmail, notSameEmail]"
             :error="hasFieldError('newEmail')"
             :error-message="getFieldError('newEmail')"
           />
@@ -124,6 +124,7 @@ const isSubmitting = ref(false);
 const required = val => !!val || t('validation.required');
 const validEmail = val => /.+@.+\..+/.test(val) || t('validation.email');
 const minLen5 = val => val.length >= 5 || t('validation.minLength', { min: 5 });
+const notSameEmail = val => val !== form.value.oldEmail || t('validation.sameEmail');
 
 // Watch for external changes to modelValue
 watch(() => props.modelValue, (newVal) => {

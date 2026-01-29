@@ -34,7 +34,7 @@
             :label="t('auth.newPassword')"
             outlined
             lazy-rules
-            :rules="[required, minLen5]"
+            :rules="[required, minLen5, notSamePassword]"
             :error="hasFieldError('newPassword')"
             :error-message="getFieldError('newPassword')"
           >
@@ -142,6 +142,7 @@ const isSubmitting = ref(false);
 const required = val => !!val || t('validation.required');
 const minLen5 = val => val.length >= 5 || t('validation.minLength', { min: 5 });
 const passwordMatch = val => val === form.value.newPassword || t('validation.passwordMatch');
+const notSamePassword = val => val !== form.value.currentPassword || t('validation.samePassword');
 
 // Watch for external changes to modelValue
 watch(() => props.modelValue, (newVal) => {

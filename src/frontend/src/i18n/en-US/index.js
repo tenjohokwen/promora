@@ -64,7 +64,10 @@ export default {
       digitCount: 'Phone number must have exactly 9 digits',
       firstDigit: 'Phone number must start with digit 6',
       operator: 'Phone number does not match any valid operator (MTN, Orange, NextTel)'
-    }
+    },
+    sameEmail: 'New email must be different from current email',
+    samePassword: 'New password must be different from current password',
+    samePhone: 'New phone number must be different from current phone number'
   },
   error: {
     generic: 'An unexpected error occurred. Please try again.',

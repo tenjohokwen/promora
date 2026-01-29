@@ -64,7 +64,10 @@ export default {
       digitCount: 'Le numero de telephone doit contenir exactement 9 chiffres',
       firstDigit: 'Le numero de telephone doit commencer par le chiffre 6',
       operator: "Le numero de telephone ne correspond a aucun operateur valide (MTN, Orange, NextTel)"
-    }
+    },
+    sameEmail: "Le nouvel e-mail doit etre different de l'e-mail actuel",
+    samePassword: 'Le nouveau mot de passe doit etre different du mot de passe actuel',
+    samePhone: 'Le nouveau numero de telephone doit etre different du numero actuel'
   },
   error: {
     generic: 'Une erreur inattendue est survenue. Veuillez reessayer.',
