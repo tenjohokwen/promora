@@ -12,6 +12,7 @@ import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.exposed.UserDto;
 import com.softropic.promora.security.exposed.exception.AuthorizationException;
 import com.softropic.promora.security.exposed.exception.SecurityError;
+import com.softropic.promora.security.common.util.SecurityConstants;
 import com.softropic.promora.security.service.UserProfileService;
 import com.softropic.promora.security.service.UserService;
 import com.softropic.promora.security.core.mapper.UserMapper;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +44,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/account")
+@PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
 public class ProfileResource {
 
     private final Logger log = LoggerFactory.getLogger(ProfileResource.class);

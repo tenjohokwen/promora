@@ -75,6 +75,7 @@ public class AccountResource {
 
     /**
      * POST  /regislink to register the user.
+     * Endpoint to resend the registration link
      *
      * @return ResponseEntity
      */
@@ -146,21 +147,6 @@ public class AccountResource {
                            "password.reset.success",
                            "Your password has now been reset. You can now login with your new password.",
                            Map.of());
-    }
-
-    @PostMapping(value = "/change_email", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public Response changeEmail(@Valid @RequestBody ChangeEmailDto changeEmailDto) {
-        final String code = accountManagementFacade.changeEmail(changeEmailDto.getOldEmail(),
-                                                              changeEmailDto.getNewEmail(),
-                                                              changeEmailDto.getPassword());
-        if(StringUtils.isNotBlank(code)) {
-            return  new Success(code,
-                                "email.updated",
-                                "Your email address has been updated",
-                                Map.of());
-        }
-        return new Failure(UUID.randomUUID().toString(), "email.change.failure", "Your email cannot be changed");
     }
 
     @GetMapping(value = "/ping", produces = MediaType.APPLICATION_JSON_VALUE)
