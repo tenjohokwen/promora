@@ -1,13 +1,13 @@
 package com.softropic.promora.security;
 
 
-
 import com.softropic.promora.common.exception.ApplicationException;
 import com.softropic.promora.common.exception.ResourceNotFoundException;
 import com.softropic.promora.common.message.ErrorDto;
 import com.softropic.promora.common.message.ErrorMsg;
 import com.softropic.promora.security.audit.shared.event.SecurityAlertEvent;
 import com.softropic.promora.security.common.event.BadCredentialsEvent;
+import com.softropic.promora.security.exception.ProfileActionException;
 import com.softropic.promora.security.exposed.exception.AuthorizationException;
 import com.softropic.promora.security.exposed.exception.InvalidJWTDataException;
 import com.softropic.promora.security.exposed.exception.JWTExpiredException;
@@ -18,7 +18,6 @@ import com.softropic.promora.security.exposed.util.RequestMetadataProvider;
 import com.softropic.promora.security.listener.FraudEvent;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.CaseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -47,7 +46,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -200,6 +198,15 @@ public class ApiAdvice {
     @ResponseStatus(HttpStatus.FORBIDDEN) //could occur when method security throws exception
     public ErrorDto fraudHandler(final AuthorizationException exception) {
         publisher.publishEvent(new FraudEvent("AuthorizationException of type %s has been thrown.".formatted(exception.getClass().getSimpleName())));
+        final String defaultMsg = "Access has been denied. You can contact help desk";
+        return handleSecErrorAndReturnDTO(exception, defaultMsg, "security.opForbidden");
+    }
+
+    @ExceptionHandler({
+            ProfileActionException.class
+    })
+    @ResponseStatus(HttpStatus.FORBIDDEN) //could occur when method security throws exception
+    public ErrorDto changeDenialHandler(final ProfileActionException exception) {
         final String defaultMsg = "Access has been denied. You can contact help desk";
         return handleSecErrorAndReturnDTO(exception, defaultMsg, "security.opForbidden");
     }

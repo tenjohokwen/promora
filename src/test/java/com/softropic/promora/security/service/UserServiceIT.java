@@ -112,7 +112,7 @@ class UserServiceIT {
         assertThat(fetchedUser.getPassword()).isNotEqualTo(user.getPassword());
 
         final Map<String, Object> userAuthMap = jdbcTemplate.queryForMap(
-                "select * from main.user_authority where user_id =" + id);
+                "select ua.*, a.name as authority_name from main.user_authority ua join main.authority a on ua.authority_id = a.id where ua.user_id =" + id);
         assertThat(userAuthMap).isNotNull().isNotEmpty().containsEntry("authority_name", "ROLE_USER");
     }
 

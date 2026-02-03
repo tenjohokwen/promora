@@ -52,6 +52,7 @@ public class SecurityAuditListener {
             auditTrail.setUrl(clientInfo.getReqUrl());
             auditTrail.setLogId(authEvent.getEventId());
             auditTrail.setSessionId(clientInfo.getSessionId());
+            auditTrail.setRequestId(clientInfo.getRequestId()); //setting this value so that it shows in logs. If not set here it will not show in logs but will show in the DB because of the pre-persist event listener
             trailService.recordTrail(auditTrail);
         }
         catch (Exception e) {
@@ -94,6 +95,7 @@ public class SecurityAuditListener {
             auditTrail.setUrl(clientInfo.getReqUrl());
             auditTrail.setLogId(securityAlertEvent.getHelpCode());
             auditTrail.setSessionId(clientInfo.getSessionId());
+            auditTrail.setRequestId(clientInfo.getRequestId());
             trailService.recordTrail(auditTrail);
         }
         catch (Exception e) {

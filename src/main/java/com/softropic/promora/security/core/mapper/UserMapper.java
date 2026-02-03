@@ -52,7 +52,8 @@ public interface UserMapper {
 
     @AfterMapping
     default void mapAddress(User user, @MappingTarget UserDto userDto) {
-        if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
+        if (Persistence.getPersistenceUtil().isLoaded(user, "addresses")
+                && user.getAddresses() != null && !user.getAddresses().isEmpty()) {
             userDto.setAddress(addressToAddressDto(user.getAddresses().iterator().next()));
         }
     }

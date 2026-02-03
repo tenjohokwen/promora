@@ -70,7 +70,7 @@ spring:
     host: mail.gmx.net
     port: 587
     username: blue-bone@gmx.de
-    password: 7QYDI33TVFD3OGXOJFFL #BEQMN6SITHUDQEGIDWKZ
+    password: ${SPRING_MAIL_PASSWORD} #BEQMN6SITHUDQEGIDWKZ
     properties:
       mail:
         smtp:
@@ -94,13 +94,13 @@ email:
       host: mail.gmx.net
       port: 587
       username: blue-bone@gmx.de
-      password: 7QYDI33TVFD3OGXOJFFL
+      password: ${GMX_PASSWORD}
     -
       name: gmail
       host: smtp.gmail.com
       port: 587
       username: enkap24@gmail.com
-      password: vwniaimezbrbdhgx
+      password: ${GMAIL_PASSWORD}
 
 
 #log configuration
@@ -142,7 +142,7 @@ client:
     host: https://sandbox.momodeveloper.mtn.com/collection
     headers:
       X-Target-Environment: sandbox
-      Ocp-Apim-Subscription-Key: 6534e66d51c549f6860326cea5188b57
+      Ocp-Apim-Subscription-Key: ${MOMO_SUBSCRIPTION_KEY}
     tcpConfig:
       <<: *DEFAULT_TCP
     endpoints:

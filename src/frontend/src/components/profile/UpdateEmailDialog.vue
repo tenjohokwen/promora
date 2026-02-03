@@ -5,6 +5,15 @@
         <div class="text-h6">{{ t('profile.updateEmail') }}</div>
       </q-card-section>
 
+      <q-card-section class="q-pt-none">
+        <q-banner class="bg-warning text-dark" rounded dense>
+          <template #avatar>
+            <q-icon name="warning" color="dark" />
+          </template>
+          {{ t('profile.emailChangeWarning') }}
+        </q-banner>
+      </q-card-section>
+
       <q-card-section>
         <q-form @submit.prevent="handleSubmit" class="q-gutter-md">
           <!-- Old email (readonly) -->
@@ -81,6 +90,7 @@ import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { profileApi } from 'src/api/profile.api';
 import { useErrorHandler } from 'src/composables/useErrorHandler';
+import { useSession } from 'src/composables/useSession';
 
 const props = defineProps({
   modelValue: {
@@ -97,6 +107,7 @@ const emit = defineEmits(['update:modelValue', 'updated']);
 
 const $q = useQuasar();
 const { t } = useI18n();
+const { handleLogout } = useSession();
 const {
   setError,
   clearError,
@@ -157,8 +168,8 @@ async function handleSubmit() {
       type: 'positive',
       message: t('success.emailChangeInitiated')
     });
-    emit('updated');
     close();
+    await handleLogout();
   } catch (err) {
     setError(err);
   } finally {

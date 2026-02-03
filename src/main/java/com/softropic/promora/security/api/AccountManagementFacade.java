@@ -167,9 +167,10 @@ public class AccountManagementFacade {
         if(userOpt.isPresent()) {
             final User user = userOpt.get();
             Map<String, Object> dataMap = ClientContextProvider.getClientContextMap();
-            dataMap.put("oldEmail", oldEmail);
-            dataMap.put("newEmail", newEmail);
-            return sendMail(EmailTemplate.EMAIL_CHANGE,
+            dataMap.put("action", "EMAIL_CHANGED");
+            dataMap.put("oldValue", oldEmail);
+            dataMap.put("newValue", newEmail);
+            return sendMail(EmailTemplate.PROFILE_CHANGE,
                             LocalDateTime.now(ClockProvider.getClock()).plusDays(7),
                             dataMap,
                             user);

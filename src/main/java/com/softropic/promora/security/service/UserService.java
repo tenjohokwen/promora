@@ -59,6 +59,18 @@ public class UserService {
 
     @Transactional(readOnly = true)
     @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
+    public User getUserWithAuthoritiesAndAddresses() {
+        //EntityGraphType.FETCH treats all unlisted attributes  as LAZY, overriding the @ElementCollection(fetch = EAGER)
+        //annotation on the addresses field
+        final User user = userRepository.findOneByLogin(securityUtil.getCurrentUserName())
+                                        .orElseThrow(() -> new UserNotFoundException(securityUtil.getCurrentUserName()));
+        //This should fetch addresses as well since "addresses" should be loaded eagerly
+        //Hibernate will then combine the addresses and authorities
+        return userRepository.findOneById(user.getId()).get();
+    }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
     public Optional<User> findUserByEmail(final String email) {
         return userRepository.findOneByEmail(email);
     }

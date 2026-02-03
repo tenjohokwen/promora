@@ -152,6 +152,7 @@ export default {
     enable2fa: 'Activer l\'authentification a deux facteurs',
     disable2fa: 'Desactiver l\'authentification a deux facteurs',
     confirm2faEnable: 'Entrez votre mot de passe pour activer l\'authentification a deux facteurs.',
-    confirm2faDisable: 'Entrez votre mot de passe pour desactiver l\'authentification a deux facteurs.'
+    confirm2faDisable: 'Entrez votre mot de passe pour desactiver l\'authentification a deux facteurs.',
+    emailChangeWarning: 'La modification de votre adresse e-mail entrainera egalement un changement de vos identifiants de connexion. Vous serez automatiquement deconnecte et devrez vous reconnecter avec votre nouvelle adresse e-mail.'
   }
 }

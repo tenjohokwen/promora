@@ -39,7 +39,7 @@ VALUES
 -- activated user: loginId: me@yahoo.com p/w: admin*123!
 INSERT INTO main."user" (id, created_by, created_date, last_modified_by, last_modified_date, request_id, session_id, status, dob, email, first_name, gender, lang_key, last_name, iso2_country, phone, phone_type, title, activated, activation_date, activation_key, locked, login, login_id_type, password_hash, reset_expiration, reset_key, otp_enabled) VALUES (586920556720583008, 'CUQXWCV', '2078-01-19 04:01:29.327261', 'JEHNCBEJL', '2004-07-18 12:55:21.553817', '65acab56-627d-4f49-9c0a-492d108f2799', '3754926784768', 'INACTIVE', '1978-03-19', 'me@yahoo.com', 'RZZ', 'FEMALE', 'en', 'AGZM', 'DE', '0248888736', 'MOBILE', 'QBHNOQUCFL', true, '2006-05-03 18:50:36.681611', 'TDSVYCJULU', false, 'me@yahoo.com', 'EMAIL', '$2a$10$Sdo/qTAcMcYaIAV6XXw3dejlsDwL93g6zb.uPUwFohPpC8q3bEg5i', null, 'HOVPXEWVX', 't');
 INSERT INTO main."user_addresses" (user_id, address_line1, address_line2, address_line3, city, company_name, country, name, postal_code, state_prov) values (586920556720583008, 'IUHDLBKX', 'CUBUEWNZ', 'DULUDMIBXZ', 'DQUYPTHOW', 'TAYWNMKYLD', 'NHTTKXZWZ', 'abcdAddress', 'NKDY', 'BCVZN');
-INSERT INTO main."user_authority" (user_id, authority_name) VALUES (586920556720583008, 'ROLE_USER');
+INSERT INTO main."user_authority" (user_id, authority_id) VALUES (586920556720583008, 5418719445932238328);
 
 -- admin user
 INSERT INTO main."user" (id, created_by, created_date, last_modified_by, last_modified_date, request_id, session_id, status, dob, email, first_name, gender, lang_key, last_name, iso2_country, phone, phone_type, title, activated, activation_date, activation_key, locked, login, login_id_type, password_hash, reset_expiration, reset_key, otp_enabled) VALUES (675373350208068096, 'anonymousUser', '2025-02-06 16:12:34.516705', 'anonymousUser', '2025-02-06 16:12:35.198266', 'd503b412-b576-48c2-8ead-ec9e10d42880', NULL, 'ACTIVE', '1990-02-20', 'queb@yahoo.com', 'VAYM', 'MALE', 'en', 'FXFUOUQBUO', 'DE', '01724527687', 'MOBILE', NULL, true, NULL, NULL, false, 'queb@yahoo.com', 'EMAIL', '$2a$10$Sdo/qTAcMcYaIAV6XXw3dejlsDwL93g6zb.uPUwFohPpC8q3bEg5i', NULL, NULL, false);
@@ -49,15 +49,15 @@ INSERT INTO main."user" (id, created_by, created_date, last_modified_by, last_mo
 (675373350208022222, 'anonymousUser', '2025-02-06 16:12:34.516705', 'anonymousUser', '2025-02-06 16:12:35.198266', 'd503b412-b576-48c2-8ead-ec9e10d42880', NULL, 'ACTIVE', '1990-02-20', 'vatican@yahoo.com', 'Vati', 'MALE', 'en', 'Can', 'DE', '675827687', 'MOBILE', NULL, true, NULL, NULL, false, 'vatican@yahoo.com', 'EMAIL', '$2a$10$Sdo/qTAcMcYaIAV6XXw3dejlsDwL93g6zb.uPUwFohPpC8q3bEg5i', NULL, NULL, false);
 INSERT INTO main."user" (id, created_by, created_date, last_modified_by, last_modified_date, request_id, session_id, status, dob, email, first_name, gender, lang_key, last_name, iso2_country, phone, phone_type, title, activated, activation_date, activation_key, locked, login, login_id_type, password_hash, reset_expiration, reset_key, otp_enabled) VALUES
 (675373350208033333, 'anonymousUser', '2025-02-06 16:12:34.516705', 'anonymousUser', '2025-02-06 16:12:35.198266', 'd503b412-b576-48c2-8ead-ec9e10d42880', NULL, 'ACTIVE', '1990-02-20', 'guarantee@yahoo.com', 'Guarantee', 'MALE', 'en', 'Exp', 'DE', '671237651', 'MOBILE', NULL, true, NULL, NULL, false, 'guarantee@yahoo.com', 'EMAIL', '$2a$10$Sdo/qTAcMcYaIAV6XXw3dejlsDwL93g6zb.uPUwFohPpC8q3bEg5i', NULL, NULL, false);
-INSERT INTO main.user_authority VALUES (675373350208068096, 'ROLE_USER');
-INSERT INTO main.user_authority VALUES (675373350208068096, 'ROLE_ADMIN'); --highest role. Sysadmin
-INSERT INTO main.user_authority VALUES (675373350208068096, 'ROLE_LTD_ADMIN'); --admin with limited role. All operator agents should have this role
-INSERT INTO main.user_authority VALUES (675373350208067011, 'ROLE_0'); --gulliver
-INSERT INTO main.user_authority VALUES (675373350208067011, 'ROLE_LTD_ADMIN'); --admin with limited role. All operator agents should have this role
-INSERT INTO main.user_authority VALUES (675373350208033333, 'ROLE_1'); --guarantee
-INSERT INTO main.user_authority VALUES (675373350208033333, 'ROLE_LTD_ADMIN'); --admin with limited role. All operator agents should have this role
-INSERT INTO main.user_authority VALUES (675373350208022222, 'ROLE_2'); --vatican
-INSERT INTO main.user_authority VALUES (675373350208022222, 'ROLE_LTD_ADMIN'); --admin with limited role. All operator agents should have this role
+INSERT INTO main.user_authority VALUES (675373350208068096, 5418719445932238328); --ROLE_USER
+INSERT INTO main.user_authority VALUES (675373350208068096, 6747751741842104908); --ROLE_ADMIN, highest role. Sysadmin
+INSERT INTO main.user_authority VALUES (675373350208068096, 3318719445932238111); --ROLE_LTD_ADMIN, admin with limited role. All operator agents should have this role
+INSERT INTO main.user_authority VALUES (675373350208067011, 1238719445932238123); --ROLE_0, gulliver
+INSERT INTO main.user_authority VALUES (675373350208067011, 3318719445932238111); --ROLE_LTD_ADMIN, admin with limited role. All operator agents should have this role
+INSERT INTO main.user_authority VALUES (675373350208033333, 2228719445932238222); --ROLE_1, guarantee
+INSERT INTO main.user_authority VALUES (675373350208033333, 3318719445932238111); --ROLE_LTD_ADMIN, admin with limited role. All operator agents should have this role
+INSERT INTO main.user_authority VALUES (675373350208022222, 3338719445932238333); --ROLE_2, vatican
+INSERT INTO main.user_authority VALUES (675373350208022222, 3318719445932238111); --ROLE_LTD_ADMIN, admin with limited role. All operator agents should have this role
 
 -- not activated user loginId: not-activated@yahoo.com p/w: admin*123!
 INSERT INTO main."user" (id, created_by, created_date, last_modified_by, last_modified_date, request_id, session_id, status, dob, email, first_name, gender, lang_key, last_name, iso2_country, phone, phone_type, title, activated, activation_date, activation_key, locked, login, login_id_type, password_hash, reset_expiration, reset_key, otp_enabled) VALUES (31620716521543010, 'admin', '2078-01-19 04:01:29.327261', 'JEHN', '2004-07-18 12:55:21.553817', '22ecwb12-127d-1f19-9c0a-492d1736f5894', 'pqs2wt', 'INACTIVE', '1978-03-19', 'not-activated@yahoo.com', 'Doh', 'FEMALE', 'en', 'Foo', 'DE', '0249283736', 'MOBILE', 'QBHNOQUCFL', false, null, 'TDSVYCJULU', false, 'not-activated@yahoo.com', 'EMAIL', '$2a$10$Sdo/qTAcMcYaIAV6XXw3dejlsDwL93g6zb.uPUwFohPpC8q3bEg5i', null, 'HOVPXEWVX', 't');

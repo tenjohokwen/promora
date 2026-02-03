@@ -143,7 +143,7 @@
                   :label="t('auth.dateOfBirth')"
                   outlined
                   lazy-rules
-                  :rules="[pastDate]"
+                  :rules="[required, pastDate]"
                   :error="hasFieldError('dob')"
                   :error-message="getFieldError('dob')"
                 />
@@ -301,6 +301,9 @@ async function handleRegister() {
       langKey: form.value.langKey,
     };
 
+    // dob is required
+    userData.dob = form.value.dob;
+
     // Add optional fields only if they have values
     if (form.value.nationalId) {
       userData.nationalId = form.value.nationalId;
@@ -311,9 +314,6 @@ async function handleRegister() {
     }
     if (form.value.phone) {
       userData.phone = form.value.phone;
-    }
-    if (form.value.dob) {
-      userData.dob = form.value.dob;
     }
     if (form.value.gender) {
       userData.gender = form.value.gender;

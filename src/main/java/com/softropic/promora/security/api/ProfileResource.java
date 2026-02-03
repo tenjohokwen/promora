@@ -65,7 +65,7 @@ public class ProfileResource {
     @GetMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<UserDto> getProfile() {
-        return Optional.ofNullable(userService.getUserWithAuthorities())
+        return Optional.ofNullable(userService.getUserWithAuthoritiesAndAddresses())
             .map(user -> new ResponseEntity<>(userMapper.toUserDto(user), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }

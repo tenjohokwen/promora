@@ -5,13 +5,13 @@ import com.google.common.collect.ImmutableList;
 import com.softropic.promora.common.client.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -24,7 +24,7 @@ import jakarta.validation.constraints.NotNull;
 public class HttpTestClient {
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTemplate testRestTemplate;
 
     private Client client;
 

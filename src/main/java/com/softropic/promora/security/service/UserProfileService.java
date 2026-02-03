@@ -9,13 +9,11 @@ import com.softropic.promora.security.audit.shared.event.AccountChangeEvent;
 import com.softropic.promora.security.common.util.SecurityConstants;
 import com.softropic.promora.security.domain.Address;
 import com.softropic.promora.security.domain.User;
-import com.softropic.promora.security.exposed.exception.SecException;
+import com.softropic.promora.security.exception.ProfileActionException;
 import com.softropic.promora.security.exposed.exception.SecurityError;
 import com.softropic.promora.security.exposed.util.SecurityUtil;
 import com.softropic.promora.security.repository.UserRepository;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service for handling user profile management operations.
@@ -102,7 +103,7 @@ public class UserProfileService {
      * @param newEmail the new email address
      * @param password the current password (for verification)
      * @return the updated user if successful
-     * @throws SecException if email or password doesn't match
+     * @throws ProfileActionException if email or password doesn't match
      */
     @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
     public Optional<User> updateUserEmail(String oldEmail, final String newEmail, String password) {
@@ -110,7 +111,7 @@ public class UserProfileService {
             if (passwordEncoder.matches(password, u.getPassword()) && StringUtils.equals(oldEmail, u.getEmail())) {
                 String capturedOldEmail = u.getEmail();
                 u.setEmail(newEmail);
-                u.setLogin(newEmail); //best pracs recommend this change
+                u.setLogin(newEmail);
                 log.debug("Changed email for User: {}", u);
 
                 // Publish event for notification and audit (send to old email address)
@@ -130,7 +131,7 @@ public class UserProfileService {
                     "newEmail", newEmail,
                     "passwordMatch", passwordEncoder.matches(password, u.getPassword()),
                     "emailMatch", StringUtils.equals(oldEmail, u.getEmail()));
-            throw new SecException("Cannot update email address", ctx, SecurityError.EMAIL_OR_PW_MISMATCH);
+            throw new ProfileActionException("Cannot update email address", ctx, SecurityError.EMAIL_OR_PW_MISMATCH);
         });
     }
 
@@ -141,14 +142,14 @@ public class UserProfileService {
      * @param currentPassword the current password
      * @param newPassword the new password
      * @return the updated user if successful
-     * @throws SecException if current password doesn't match
+     * @throws ProfileActionException if current password doesn't match
      */
     @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
     public Optional<User> changePassword(String currentPassword, String newPassword) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
                 .map(user -> {
                     if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-                        throw new SecException("Current password does not match",
+                        throw new ProfileActionException("Current password does not match",
                                 Map.of("login", user.getLogin()),
                                 SecurityError.EMAIL_OR_PW_MISMATCH);
                     }
@@ -207,16 +208,16 @@ public class UserProfileService {
      * @param enabled the desired 2FA state
      * @param password the current password for verification
      * @return the updated user if successful
-     * @throws SecException if password doesn't match
+     * @throws ProfileActionException if password doesn't match
      */
     @PreAuthorize(SecurityConstants.HAS_ANY_ROLE)
     public Optional<User> toggle2fa(boolean enabled, String password) {
         return userRepository.findOneByLogin(securityUtil.getCurrentUser().getUsername())
                 .map(user -> {
                     if (!passwordEncoder.matches(password, user.getPassword())) {
-                        throw new SecException("Password does not match",
-                                Map.of("login", user.getLogin()),
-                                SecurityError.EMAIL_OR_PW_MISMATCH);
+                        throw new ProfileActionException("Password does not match",
+                                                         Map.of("login", user.getLogin()),
+                                                         SecurityError.EMAIL_OR_PW_MISMATCH);
                     }
                     user.setOtpEnabled(enabled);
                     log.debug("Changed 2FA status for User: {} to {}", user.getLogin(), enabled);

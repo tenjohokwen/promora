@@ -16,7 +16,7 @@ public class KeyGen {
     /**
      * Generates a new AES-256 encryption key and prints it in Base64 format.
      */
-    public static void main(String[] args) throws Exception {
+    /**public static void main(String[] args) throws Exception {
         // Generate a new AES-256 key
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
         keyGen.init(256, new SecureRandom());
@@ -28,5 +28,5 @@ public class KeyGen {
         System.out.println("Generated AES-256 key (Base64):");
         System.out.println(encodedKey);
         System.out.println("\nStore this securely and use it as the value for app.encryption.master-key");
-    }
+    }**/
 }

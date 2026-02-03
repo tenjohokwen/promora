@@ -152,6 +152,7 @@ export default {
     enable2fa: 'Enable Two-Factor Authentication',
     disable2fa: 'Disable Two-Factor Authentication',
     confirm2faEnable: 'Enter your password to enable two-factor authentication.',
-    confirm2faDisable: 'Enter your password to disable two-factor authentication.'
+    confirm2faDisable: 'Enter your password to disable two-factor authentication.',
+    emailChangeWarning: 'Changing your email address will also change your login credentials. You will be automatically signed out and will need to log in again with your new email address.'
   }
 }

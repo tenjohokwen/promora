@@ -22,10 +22,10 @@ spring:
   application.name: promora #custom field
   autoconfigure.exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
   main.allow-circular-references: true
-  jmx.enabled: true
+  jmx.enabled: false
   jpa:
     generate-ddl: true
-    hibernate.ddl-auto: create #none #update #create #create-drop #validate
+    hibernate.ddl-auto: create-drop #none #update #create #create-drop #validate
     open-in-view: false #is enabled by default. Therefore, database queries may be performed during view rendering.
     properties:
       hibernate:
@@ -70,7 +70,7 @@ spring:
     host: mail.gmx.net
     port: 587
     username: blue-bone@gmx.de
-    password: 7QYDI33TVFD3OGXOJFFL #BEQMN6SITHUDQEGIDWKZ
+    password: ${SPRING_MAIL_PASSWORD:dev_mail_password} #BEQMN6SITHUDQEGIDWKZ
     properties:
       mail:
         smtp:
@@ -94,19 +94,19 @@ email:
       host: mail.gmx.net
       port: 587
       username: blue-bone@gmx.de
-      password: 7QYDI33TVFD3OGXOJFFL
+      password: ${GMX_PASSWORD:dev_gmx_password}
     -
       name: gmail
       host: smtp.gmail.com
       port: 587
       username: enkap24@gmail.com
-      password: vwniaimezbrbdhgx
+      password: ${GMAIL_PASSWORD:dev_gmail_password}
     -
       name: mail
       host: smtp.mail.de
       port: 587
       username: blue-bone@mail.de
-      password: himmeL*30
+      password: ${MAIL_DE_PASSWORD:dev_mail_de_password}
 
 
 #log configuration
@@ -129,11 +129,18 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,env
       base-path: /manage  #actuator root path
   endpoint:
     health:
       show-details: when-authorized
+      roles: ROLE_ADMIN
+    info:
+      show-details: when-authorized
+      roles: ROLE_ADMIN
+    env:
+      show-details: when-authorized
+      show-values: when-authorized
       roles: ROLE_ADMIN
 defaultTcpConfig: &DEFAULT_TCP
   readTimeout: 15000
@@ -148,7 +155,7 @@ client:
     host: https://sandbox.momodeveloper.mtn.com/collection
     headers:
       X-Target-Environment: sandbox
-      Ocp-Apim-Subscription-Key: 6534e66d51c549f6860326cea5188b57
+      Ocp-Apim-Subscription-Key: ${MOMO_SUBSCRIPTION_KEY:dev_momo_subscription_key}
     tcpConfig:
       <<: *DEFAULT_TCP
     endpoints:

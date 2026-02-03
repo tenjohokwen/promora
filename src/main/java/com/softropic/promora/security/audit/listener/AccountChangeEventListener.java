@@ -68,6 +68,7 @@ public class AccountChangeEventListener {
             auditTrail.setUrl(clientInfo.getReqUrl());
             auditTrail.setLogId(logId);
             auditTrail.setSessionId(clientInfo.getSessionId());
+            auditTrail.setRequestId(clientInfo.getRequestId()); //setting this value so that it shows in logs. If not set here it will not show in logs but will show in the DB because of the pre-persist event listener
             trailService.recordTrail(auditTrail);
         }
         catch (Exception e) {
